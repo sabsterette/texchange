@@ -1,0 +1,244 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto+Mono');
+
+* {
+    font-family: 'Roboto Mono', monospace;
+   
+    /* background-color: white; */
+    box-sizing: border-box;
+    overflow: auto;
+    
+}
+
+h3 {
+    padding-top: 3%;
+    padding-bottom: 1%;
+    font-size: 20px;
+    color: rgb(113,111,109);
+    padding-left: 7.6%;
+}
+
+a {
+    text-decoration: none;
+    color: #5DBFE2;
+  }
+  a:hover {
+    color:rgb(113,111,109);
+  }
+
+.createNew {
+    box-sizing: border-box;
+    border: 2px dotted #5DBFE2;;
+    width: 19%;
+    text-align: center;
+    font-size: 20px;
+    color: #5DBFE2;
+    margin-top: 3%;
+    padding: 2%;
+    margin-left: 7.6%;
+}
+
+.createNew:hover {
+    background-color: rgb(207, 238, 250);
+}
+
+.team-1{
+    display: inline-block;
+    color: rgb(113,111,109);
+    box-sizing: border-box;
+    border: 2px solid rgb(209,211,212);
+    /* border: 2px solid #5DBFE2; */
+    width: 19%;
+    margin-left: 7.6%;
+}
+
+
+.date-created {
+    
+    text-align: right;
+    padding-right: 3%;
+    padding-top: 3%;
+    padding-bottom: 3%;
+    border-bottom: 2px solid rgb(209,211,212);
+    /* border-bottom: 2px solid #5DBFE2; */
+    color: white; 
+    background: rgb(209,211,212); 
+    /* background: #5DBFE2; */
+}
+
+/* .date-created {
+    margin-left: 12%;
+    width: 10%;
+}
+.team-name {
+    margin-left: 7.6%;
+    width: 15%;
+} */
+
+
+
+.lead-partner, .team-name {
+   width: 35%;
+    /* font-weight: bold; */
+    padding-left: 3%;
+    padding-top: 3%;
+    padding-bottom: 3%;
+    display: inline-block;
+}
+
+.lead-partner-1, .team-name-1 {
+    width: 65%;
+    display: inline-block;
+    color: #5DBFE2;
+    padding-left: 3%;
+    padding-top: 3%;
+    padding-bottom: 3%;
+}
+
+.details {
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    text-align: right;
+    padding-right: 3%;
+    padding-bottom: 3%;
+    padding-top: 3%;
+    background: rgb(209,211,212);
+    width: 100%;
+}
+
+ .team-member-1, .team-member-2, .team-member-3, .team-member-4 {
+    width: 15%;
+    display: inline-block;
+    /* color: rgb(113,111,109); */
+    color: #5DBFE2;
+    padding-right: 2%;
+    padding-bottom:2%;
+}
+
+.textbook-modal {
+    /* color: rgb(113,111,109); */
+    color: white;
+    /* padding-bottom: 2%; */
+    font-size: 25px;
+    float: left;
+    
+    
+}
+
+.matterDuration, .dueDate, .title, .price, .currency {
+    color: rgb(113,111,109);
+    width: 15%;
+    display:inline-block;
+    padding-bottom: 2%;
+}
+
+.quoteDate, .matterDates, .currency-name, .title-name, .price-number {
+    /* color: rgb(113,111,109); */
+    color: #5DBFE2;
+    display: inline-block;
+    padding-right: 2%;
+    padding-bottom: 2%;
+    width: 85%;
+}
+
+.lead-partner-name{
+    width: 15%;
+    display: inline-block;
+    /* color: rgb(113,111,109); */
+    color: #5DBFE2;
+    /* font-weight: bold; */
+    padding-right: 2%;
+    padding-bottom: 2%;
+}
+
+.title, .price, .currency, .matterDuration, .dueDate {
+    color: rgb(113,111,109);
+    padding-bottom: 2%;
+}
+.title, .title-name {
+    padding-top: 2%;
+}
+
+
+.team-members {
+    color: rgb(113,111,109);
+    display: inline-block;
+    width: 15%;
+    /* padding-right: 2%; */
+    padding-bottom: 2%;
+}
+
+
+.date-modal {
+    float: right;
+    /* color: rgb(113,111,109); */
+    color: white;
+    font-size: 20px;
+    
+    
+}
+.modal-date {
+    /* border-bottom: 2px solid rgb(113,111,109); */
+    background: rgb(209,211,212);
+    padding: 2%;
+}
+
+.pgroup, .boffice, .currency, .matterDuration, .dueDate, .team-members {
+    padding-left: 2%;
+}
+
+.modal {
+    display: block;
+    /* modal container fixed across whole screen */
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+
+    top: 0;
+    /* z-index must be higher than .modal-background */
+    z-index: 1000;
+
+    /* enables scrolling for tall modals */
+    overflow: auto;
+   
+}
+
+    .modal-body {
+        /* padding-bottom: 2%;
+        padding-top: 30px;
+        padding-left: 30px;
+        padding-right: 15px; */
+        background: #fff;
+        /* border: 2px solid rgb(113,111,109); */
+
+
+        /* margin exposes part of the modal background */
+        margin: 15%;
+
+        
+    }
+
+
+.modal-background {
+    /* modal background fixed across whole screen */
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+
+    /* semi-transparent black  */
+    background-color: #000;
+    opacity: 0.50;
+
+    /* z-index must be below .modal and above everything else  */
+    z-index: 900;
+}
+
+
+body.modal-open {
+/* body overflow is hidden to hide main scrollbar when modal window is open */
+overflow: hidden;
+}
