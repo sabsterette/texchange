@@ -1,0 +1,207 @@
+/* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css?family=Roboto+Mono');
+
+* {
+    font-family: 'Roboto Mono', monospace;
+   
+    /* background-color: white; */
+    box-sizing: border-box;
+    overflow: auto;
+    
+}
+  
+.texchangeLogo {
+    display: inline-block;
+    height: 45px;
+    width: 40px;
+    padding-top: 20px;
+    padding-right: 10px;
+}
+
+.heading {
+        
+    /* color: rgba(131, 132, 133, 0.836); */
+    color: black;
+    float: center;
+    
+   
+    font-size: 40px;
+    
+   
+}
+
+
+.form-control {
+    width: 288px;
+    height: 40px;
+}
+
+.login_form {
+    display:inline-block;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 3px;
+}
+
+  label {
+    text-align: justify;  
+    display: block;
+    font-size: 12px;
+    padding-top: 15px;
+    padding-bottom: 5px;
+    color: #97A3B4;
+  }
+  
+  input {
+      color: #002257;
+      font-size: 13px;
+  }
+
+  .form-group3 {
+      padding-top: 20px;
+  }
+  .form-group4 {
+      padding-top: 30px;
+      padding-bottom: 50px;
+  }
+
+  .btn-primary {
+      background: #5DBFE2 100%;
+      text-align: center;
+      font-size: 12px;
+      color: white;
+      width: 288px;
+      height: 45px;
+      border-radius: 2px;
+
+  }
+
+  .btn-create {
+    background: #f1f1f1 100%;
+    text-align: center;
+    color:#002257 100%;
+    width: 288px;
+    height: 45px;
+    border-radius: 2px;
+    
+    }
+
+/* p {
+    padding-top: 70px;
+    font: 1em;
+} */
+
+.reset_password {
+    
+    text-align: center;
+    padding-top: 40px;
+    font-size: 13px;
+    
+}
+
+a, a:active {
+    cursor: pointer;
+    color: #5DBFE2;
+    text-decoration: none;
+}
+
+.help-block {
+    font-size: 11px;
+}
+
+
+
+.containerHome {
+    background-color: #f9f9f9;
+    padding-left: 40px;
+    padding-right: 40px;
+     padding-top: 20px; 
+     padding-bottom: 40px; 
+     margin: 0px;
+    margin-top: 1%;
+    
+    
+}
+.wrapperHome {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+.initial_input {
+    /* float: right; */
+    display: inline-block;
+}
+
+.initial_input_control {
+    width: 500px;
+    height: 28px;
+    border-radius: 8px;
+    border: 1px solid rgb(209,211,212);
+}
+
+.initial_input_control_req {
+    width: 265px;
+    height: 28px;
+    border: 1px solid rgb(253, 54, 54);
+    border-radius: 8px;
+}
+
+.initial_input_control_long {
+    width: 90%;
+    height: 28px;
+    border-radius: 8px;
+    border: 1px solid rgb(209,211,212);
+}
+
+
+
+/* .quote_creation {
+    background-color: gray;
+    
+} */
+
+/* Progress Bar Styling */
+.clearfix:after {
+    clear: both;
+    content: "";
+    display: block;
+    height: 0;
+}
+
+.bar {
+	font-family: 'Lato', sans-serif;
+	width: 10000px;
+    margin: 0 auto;
+    display: block;
+}
+
+.wrapper {
+	display: table-cell;
+	height: 100px;
+	vertical-align: left;
+}
+
+/* .nav {
+	margin-top: 100px;
+} */
+
+/* .back {
+    float:left;
+    margin-top: 500px;
+}
+.pull-right {
+    float: right;
+    margin-top: 500px;
+} */
+
+/* a, a:active {
+	color: #333;
+	text-decoration: none;
+} */
+
+a:hover {
+	color: #999;
+}
+
