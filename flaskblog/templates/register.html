@@ -1,69 +1,94 @@
-{% extends "layout.html" %}
-{% block content %}
-<div class="content-section">
-<form method="POST" action=''>
-    {{ form.hidden_tag()  }}
-    <fieldset class="form-group">
-        <legend class="border-bottom mb-4">Join Today</legend>
-        <div class="form-group">
-            {{ form.username.label(class="form-control-label") }}
+<!DOCTYPE html>
+<html>
+<!-- 
+<head>
+    <link rel="stylesheet" type="text/css" href="register.css">
+</head> -->
+<title>SIGN UP!</title>
 
-            {% if form.username.errors %}
-            {{ form.username(class="form-control form-control-lg is-invalid") }}
-            <div class="invalid-feedback"></div>
-            {% for error in form.username.errors %}
-            <span>{{ error }}</span>
-            {% endfor %}
-            {% else %}
-            {{ form.username(class="form-control form-control-lg") }}
-            {% endif %}
+<head>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='register.css') }}">
+</head>
+<div class="wrapperHome">
+    <div class="containerHome">
+        <!-- <img src="assets/images/wikkerlogo.svg" alt="Wikker Logo" class="logo"> -->
+        <div class="heading"><img src="assets/images/stack.svg" alt="Texchange Logo" class="texchangeLogo">Texchange
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <form #f="ngForm" (ngSubmit)="register(f)" method="POST" action=''>
+                    {{ form.hidden_tag()  }}
+                    <div class="form-register">
+                        <!-- <label for="name">Full name</label> [(ngModel)]="credentials.name" required #name="ngModel"-->
+                        <!-- <input type="text" class="form-control" name="username" placeholder="Username"> -->
 
+                        {{ form.username.label(class="form-control") }}
+                        {% if form.username.errors %}
+                        {{ form.username(class="form-control") }}
+                        {% for error in form.username.errors %}
+                        <div class="help-block">{{ error }}</div>
+                        {% endfor %}
+                        {% else %}
+                        {{ form.username(class="form-control") }}
+                        {% endif %}
+                        <!-- <div *ngIf="f.submitted && !name.valid" class="help-block">*Full name is required</div> 
+                        [(ngModel)]="credentials.gradYear" required #gradYear="ngModel"-->
+                    </div>
+                    <div class="form-register">
+                        <!-- <input type="text" class="form-control" name="email" placeholder="Email"> -->
+                        {{ form.email.label(class="form-control") }}
+                        {% if form.email.errors %}
+                        {{ form.email(class="form-control") }}
+                        {% for error in form.email.errors %}
+                        <div class="help-block">{{ error }}</div>
+                        {% endfor %}
+                        {% else %}
+                        {{ form.email(class="form-control") }}
+                        {% endif %}
+
+                    </div>
+                    <div class="form-register">
+                        <!-- <label for="email">Email address</label>
+                        [(ngModel)]="credentials.email" required #email="ngModel" -->
+                        <!-- <input type="password" class="form-control" name="password" placeholder="Password"> -->
+                        {{ form.password.label(class="form-control") }}
+                        {% if form.password.errors %}
+                        {{ form.password(class="form-control") }}
+                        {% for error in form.password.errors %}
+                        <div class="help-block">{{ error }}</div>
+                        {% endfor %}
+                        {% else %}
+                        {{ form.password(class="form-control") }}
+                        {% endif %}
+
+                    </div>
+                    <div class="form-register">
+                        <!-- <label for="password">Password</label>  [(ngModel)]="credentials.password" required #password="ngModel"-->
+                        <!-- <input type="password" class="form-control" name="password" placeholder="Confirm Password"> -->
+                        {{ form.confirm_password.label(class="form-control") }}
+                        {% if form.confirm_password.errors %}
+                        {{ form.confirm_password(class="form-control") }}
+                        {% for error in form.confirm_password.errors %}
+                        <div class="help-block">{{ error }}</div>
+                        {% endfor %}
+                        {% else %}
+                        {{ form.confirm_password(class="form-control") }}
+                        {% endif %}
+                    </div>
+                    <div type="submit">
+                        {{ form.submit(class="btn-primary") }}
+                    </div>
+                    <br><br>
+                    <div class="form-register">
+                        <label class="loginInstead" for="test">Already a member? Please <a
+                                href="{{ url_for('login') }}">log
+                                in</a> instead.</label>
+                    </div>
+                </form>
+            </div>
         </div>
-        <div class="form-group">
-            {{ form.email.label(class="form-control-label") }}
-            {% if form.email.errors %}
-            {{ form.email(class="form-control form-control-lg is-invalid") }}
-            <div class="invalid-feedback"></div>
-            {% for error in form.email.errors %}
-            <span>{{ error }}</span>
-            {% endfor %}
-            {% else %}
-            {{ form.email(class="form-control form-control-lg") }}
-            {% endif %}
-        </div>
-        <div class="form-group">
-            {{ form.password.label(class="form-control-label") }}
-            {% if form.password.errors %}
-            {{ form.password(class="form-control form-control-lg is-invalid") }}
-            <div class="invalid-feedback"></div>
-            {% for error in form.password.errors %}
-            <span>{{ error }}</span>
-            {% endfor %}
-            {% else %}
-            {{ form.password(class="form-control form-control-lg") }}
-            {% endif %}
-        </div>
-        <div class="form-group">
-            {{ form.confirm_password.label(class="form-control-label") }}
-            {% if form.confirm_password.errors %}
-            {{ form.confirm_password(class="form-control form-control-lg is-invalid") }}
-            <div class="invalid-feedback"></div>
-            {% for error in form.confirm_password.errors %}
-            <span>{{ error }}</span>
-            {% endfor %}
-            {% else %}
-            {{ form.confirm_password(class="form-control form-control-lg") }}
-            {% endif %}
-        </div>
-    </fieldset>
-    <div class="form-group">
-        {{ form.submit(class="btn btn-outline-info") }}
     </div>
-</form>
-<div class="border-top pt3">
-    <small class="text-muted">
-        Already Have an Account? <a class="ml-2" href="{{ url_for('login') }}">Sign in</a>
-    </small>
 </div>
-</div>
-{% endblock content %}
+
+
+</html>
