@@ -1,0 +1,36 @@
+<div class="wrapperHome">
+    <div class="containerHome">
+      <!-- <img src="assets/images/wikkerlogo.svg" alt="Wikker Logo" class="logo"> -->
+      <div class="heading"><img src="assets/images/stack.svg" alt="Texchange Logo" class="texchangeLogo">Texchange</div>
+      <div class="row">
+        <div class="col-md-6">
+          <form #f="ngForm" (ngSubmit)="register(f)">
+            <div class="form-register"> 
+              <!-- <label for="name">Full name</label> -->
+              <input type="text" class="form-control" name="name"  placeholder="Full Name" [(ngModel)]="credentials.name" required #name="ngModel"> 
+              <div *ngIf="f.submitted && !name.valid" class="help-block">*Full name is required</div>
+            </div>
+            <div class="form-register">
+                <input type="text" class="form-control" name="gradYear" placeholder="Graduation Year" [(ngModel)]="credentials.gradYear" required #gradYear="ngModel">
+                <div *ngIf="f.submitted && !gradYear.valid" class="help-block">*Graduation year is required</div>
+              </div>
+            <div class="form-register">
+              <!-- <label for="email">Email address</label> -->
+              <input type="email" class="form-control" name="email" placeholder="Email" [(ngModel)]="credentials.email" required #email="ngModel">
+              <div *ngIf="f.submitted && !email.valid" class="help-block">*Email is required</div>
+            </div>
+            <div class="form-register">
+              <!-- <label for="password">Password</label> -->
+              <input type="password" class="form-control" name="password" placeholder="Password" [(ngModel)]="credentials.password" required #password="ngModel">
+              <div *ngIf="f.submitted && !password.valid" class="help-block">*Password is required</div>
+            </div>
+            <button type="submit" class="btn-primary">REGISTER</button>
+            <br><br>
+            <div class="form-register">
+              <label class="loginInstead" for="test">Already a member? Please <a routerLink="/login">log in</a> instead.</label>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
