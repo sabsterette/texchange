@@ -1,16 +1,48 @@
-{% extends "layout.html" %}
-{% block content %}
-{% for post in posts %}
-<article class="media content-section">
-    <div class="media-body">
-        <div class="article-metadata">
-            <a class="mr-2" href="#">{{ post.author }}</a>
-            <small class="text-muted">{{ post.date_posted }}</small>
-        </div>
-        <h2><a class="article-title" href="#">{{ post.title }}</a></h2>
-        <p class="article-content">{{ post.content }}</p>
-    </div>
-</article>
-{% endfor %}
+<!DOCTYPE html>
+<html>
+<title>DASHBOARD</title>
 
-{% endblock content %}
+<head>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='home.css') }}">
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+</head>
+
+<!--Navigation bar-->
+
+    <div class="createNew" href="/create"> <span><a href="/create">Create New Listing</a></span> </div>
+    <h3>Your Textbooks</h3>
+    <div class="textbook-1">
+        <div class="title">
+            Title:
+        </div>
+        <div class="title-name">
+            Operating Systems Concepts
+        </div>
+        <div class="author">
+            By:
+        </div>
+        <div class="author-name">
+            Abraham Silberschatz, Peter Galvin, Greg Gagne
+        </div>
+        <div class="price">
+            Price:
+        </div>
+        <div class="price-name">
+            $30
+        </div>
+        <div class="class">
+            Class:
+        </div>
+        <div class="class-name">
+            EECS 338
+        </div>
+        <div class="condition">
+            Condition:
+        </div>
+        <div class="condition-name">
+            Slightly used
+        </div>
+    </div>
+</body>
+
+</html>
