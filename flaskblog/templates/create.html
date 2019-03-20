@@ -91,13 +91,13 @@
       <div class="condition">
         <label for="condition">*Condition</label>
       </div>
-      {% if form.condition.errors %}
-      {{ form.condition(class="initial_input_control") }}
-      {% for error in form.condition.errors %}
+      {% if form.quality.errors %}
+      {{ form.quality(class="initial_input_control") }}
+      {% for error in form.quality.errors %}
       <div class="help-block">{{ error }}</div>
       {% endfor %}
       {% else %}
-      {{ form.condition(class="initial_input_control") }}
+      {{ form.quality(class="initial_input_control") }}
       {% endif %}
 
       <div class="description">
@@ -117,8 +117,8 @@
       </div> -->
       <div class="submit_data_div">
         <div type="submit">
-          {{ form.submit(class="submit_data") }}
         </div>
+        {{ form.submit(class="submit_data") }}
       </div>
     </form>
   </div>
