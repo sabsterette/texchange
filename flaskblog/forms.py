@@ -45,7 +45,7 @@ class CreateForm (FlaskForm):
     authors = StringField('Authors', validators=[DataRequired()])
     price = DecimalField('Price', places=2, validators=[DataRequired()])
     course = StringField('Class Name', validators=[DataRequired()])
-    condition = StringField('Condition',validators=[DataRequired()])
+    quality = StringField('Quality',validators=[DataRequired()])
      #choices=[('Brand New', 'Lightly Used', 'Used', 'Old'
     description = TextAreaField('Description', validators=[Length(max=140)])
     submit = SubmitField('Create Item!')
