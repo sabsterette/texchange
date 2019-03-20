@@ -61,8 +61,17 @@
       padding-top: 20px;
   }
   .form-group4 {
-      padding-top: 30px;
-      padding-bottom: 50px;
+      margin-top: 30px;
+      margin-bottom: 30px;
+      padding-top: 10px;
+      padding-bottom: 20px;
+      background: #f1f1f1 100%;
+      text-align: center;
+      color:#002257 100%;
+      width: 288px;
+      height: 45px;
+      border-radius: 2px;
+      box-shadow: 0 2px 2px 0 gray, 0 2px 2px 0 gray;
   }
 
   .btn-primary {
@@ -84,6 +93,13 @@
     height: 45px;
     border-radius: 2px;
     
+    
+    }
+    .btn-create-link {
+        text-align: center;
+        text-decoration: none;
+        justify-items: center;
+        float: center;
     }
 
 /* p {
