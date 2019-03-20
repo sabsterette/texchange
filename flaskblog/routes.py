@@ -11,10 +11,29 @@ from flaskblog.models import User, Post
 from flask_login import login_user, current_user, logout_user, login_required
 
 
-@app.route("/")
-@app.route("/home")
+@app.route("/", methods=['GET', 'POST'])
+@app.route("/login", methods=['GET', 'POST'])
+def login():
+    if current_user.is_authenticated:
+        return redirect(url_for('home'))
+    form = LoginForm()
+    if form.validate_on_submit():
+        user = User.query.filter_by(email=form.email.data).first()
+        if user and bcrypt.check_password_hash(user.password, form.password.data):
+            login_user(user, remember=form.remember.data)
+            next_page = request.args.get('next') #gets the page they were trying to access
+            flash(f'Welcome Back {user.username}!', 'label')
+            #turnary conditional
+            return redirect(next_page) if next_page else redirect(url_for('home'))
+        else:
+            flash('log in unsuccessful, try again', 'help-block')
+    return render_template('login.html', title='Login', form=form)
+
+@app.route("/home", methods=['GET'])
+@login_required
 def home():
-    return render_template('home.html')
+    posts = current_user.posts
+    return render_template('home.html', posts=posts)
 
 
 @app.route("/about")
@@ -38,24 +57,9 @@ def register():
     return render_template('register.html', title='Register', form=form)
 
 
-@app.route("/login", methods=['GET', 'POST'])
-def login():
-    if current_user.is_authenticated:
-        return redirect(url_for('home'))
-    form = LoginForm()
-    if form.validate_on_submit():
-        user = User.query.filter_by(email=form.email.data).first()
-        if user and bcrypt.check_password_hash(user.password, form.password.data):
-            login_user(user, remember=form.remember.data)
-            next_page = request.args.get('next') #gets the page they were trying to access
-            flash(f'Welcome Back {user.username}!', 'label')
-            #turnary conditional
-            return redirect(next_page) if next_page else redirect(url_for('home'))
-        else:
-            flash('log in unsuccessful, try again', 'help-block')
-    return render_template('login.html', title='Login', form=form)
 
 @app.route("/logout")
+@login_required
 def logout():
     logout_user()
     return redirect(url_for('login'))
@@ -112,9 +116,12 @@ def search():
 @login_required
 def createItem():
     form = CreateForm()
-
     if form.validate_on_submit():
-        flash('Your account has been created!', 'success')
+        post = Post(title=form.title.data, authors=form.authors.data, 
+        price=form.price.data, user_id=current_user.id, class_id=form.course.data,
+        quality=form.quality.data, description=form.description.data)
+        db.session.add(post)
+        db.session.commit()
+        flash('Your item has been created!', 'success')
         return redirect(url_for('home'))
-
     return render_template('create.html', title='Create Listing', form=form)
