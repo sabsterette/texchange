@@ -38,49 +38,51 @@
     <div class="success">
         {% with messages = get_flashed_messages() %}
         {% if messages %}
-        <ul class="flashes">
+        <ol class="flashes">
             {% for message in messages %}
             <li class="flashes">{{ message }}</li>
             {% endfor %}
-        </ul>
+        </ol>
         {% endif %}
         {% endwith %}
     </div>
 
     <div class="createNew" href="/create"> <span><a href="/create">Create New Listing</a></span> </div>
     <h3>Your Textbooks</h3>
+    {% for post in posts %}
     <div class="textbook-1">
         <div class="title">
             Title:
         </div>
         <div class="title-name">
-            Operating Systems Concepts
+            {{ post.title }}
         </div>
         <div class="author">
             By:
         </div>
         <div class="author-name">
-            Abraham Silberschatz, Peter Galvin, Greg Gagne
+            {{ post.authors }}
         </div>
         <div class="price">
             Price:
         </div>
         <div class="price-name">
-            $30
+            ${{ post.price }}
         </div>
         <div class="class">
             Class:
         </div>
         <div class="class-name">
-            EECS 338
+            {{ post.class_id }}
         </div>
         <div class="condition">
             Condition:
         </div>
         <div class="condition-name">
-            Slightly used
+            {{ post.quality }}
         </div>
     </div>
+    {% endfor %}
 </body>
 
 </html>
