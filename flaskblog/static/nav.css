@@ -5,11 +5,11 @@
    
     /* background-color: white; */
     box-sizing: border-box;
-    overflow: auto;
+    overflow: auto; 
     
 }
 
-ul {
+.nav-ul {
     list-style-type: none;
     margin: 0 auto;
     /* padding: 0.7%; */
