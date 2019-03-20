@@ -1,6 +1,7 @@
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileField, FileAllowed
-from wtforms import StringField, PasswordField, SubmitField, BooleanField
+from wtforms import StringField, SelectField, PasswordField
+from wtforms import SubmitField, BooleanField, TextAreaField, DecimalField
 # StringField is used for forms with a String input
 # passwordfield used for registering a password
 # allows for submitting the form
@@ -19,8 +20,8 @@ class RegistrationForm (FlaskForm):
     password = PasswordField('Password', validators=[DataRequired()])
     # could potentially add more validators for password like length
     confirm_password = PasswordField('Confirm Password',
-                                     validators=[DataRequired(), EqualTo('password')])
-    submit = SubmitField('Sign Up')
+                                     validators=[EqualTo('password')])
+    submit = SubmitField('REGISTER')
 
     def validate_username(self, username):
         user = User.query.filter_by(username=username.data).first()
@@ -38,6 +39,17 @@ class LoginForm (FlaskForm):
     password = PasswordField('Password', validators=[DataRequired()])
     remember = BooleanField('Remember Me')
     submit = SubmitField('Login')
+
+class CreateForm (FlaskForm):
+    title = StringField('Title', validators=[DataRequired()])
+    authors = StringField('Authors', validators=[DataRequired()])
+    price = DecimalField('Price', places=2, validators=[DataRequired()])
+    course = StringField('Class Name', validators=[DataRequired()])
+    condition = StringField('Condition',validators=[DataRequired()])
+     #choices=[('Brand New', 'Lightly Used', 'Used', 'Old'
+    description = TextAreaField('Description', validators=[Length(max=140)])
+    submit = SubmitField('Create Item!')
+
 
 class UpdateAccountForm (FlaskForm):
     # validators are constraints on the username to make sure it's a valid username
