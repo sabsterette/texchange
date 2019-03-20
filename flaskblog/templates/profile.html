@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<title>CREATE LISTING</title>
+
+<head>
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='profile.css') }}">
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='nav.css') }}">
+</head>
+
+<!--NAVBAR START-->
+
+<body>
+  <div class="nav">
+    <ul>
+      <li><a class="home" href="/home"><img src="{{ url_for('static', filename='assets/images/stack.svg') }}"
+            alt="Texchange Logo" class="texchangeLogo"></a>
+      </li>
+      <li><a class="home" href="/search-page"><img src="{{ url_for('static', filename='assets/images/search.svg')}}"
+            alt="search page" class="searchPage"></a>
+      </li>
+      <div class="dropdown" style="float:right">
+        <img src="{{ url_for('static', filename='assets/images/settings-black.svg')}}" alt="settings" class="dropbtn">
+        <div class="dropdown-content">
+          <a href="/profile"><img src="{{ url_for('static', filename='assets/images/avatar.svg')  }}"
+              class="profileDrop">Profile</a>
+          <a href="/home"><img src="{{ url_for('static', filename='assets/images/information.svg') }}"
+              class="supportDrop">Help</a>
+          <a href="/logout"><img src="{{ url_for('static', filename='assets/images/turn-off.svg') }}"
+              class="signOutDrop">Logout</a>
+
+        </div>
+      </div>
+    </ul>
+  </div>
+
+  <!--NAVBAR END-->
+  <div class="container">
+    <div class="row">
+
+      <!-- <div class="col-md-6"> -->
+
+      <h1 class="form-signin-heading">Your Profile</h1>
+
+      <div class="form-horizontal">
+        <div class="form-group">
+          <label class="col-sm-3-control-label">{{ current_user.username }}</label>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-3-control-label">{{ current_user.email }}</label>
+        </div>
+      </div>
+
+      <!-- </div> -->
+
+    </div>
+
+  </div>
+  <button class="editProfile">Edit Profile</button>
+</body>
+
+</html>
