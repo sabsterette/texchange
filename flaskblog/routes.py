@@ -5,31 +5,16 @@ from PIL import Image
 from flask import render_template, url_for, flash, redirect, request
 # render_template allows returning of files,
 # flash allows to send flash messagees
-from flaskblog.forms import RegistrationForm, LoginForm, UpdateAccountForm
+from flaskblog.forms import RegistrationForm, LoginForm, UpdateAccountForm, CreateForm
 from flaskblog import app, db, bcrypt
 from flaskblog.models import User, Post
 from flask_login import login_user, current_user, logout_user, login_required
-
-posts = [
-    {
-        'author': 'Corey',
-        'title': 'Mine',
-        'content': 'Fun',
-        'date_posted': 'today'
-    },
-    {
-        'author': 'Me',
-        'title': 'WOOT',
-        'content': 'No',
-        'date_posted': 'Yesterday'
-    }
-]
 
 
 @app.route("/")
 @app.route("/home")
 def home():
-    return render_template('home.html', posts=posts)
+    return render_template('home.html')
 
 
 @app.route("/about")
@@ -50,7 +35,6 @@ def register():
         db.session.commit()
         flash('Your account has been created!', 'success')
         return redirect(url_for('login'))
-
     return render_template('register.html', title='Register', form=form)
 
 
@@ -64,17 +48,17 @@ def login():
         if user and bcrypt.check_password_hash(user.password, form.password.data):
             login_user(user, remember=form.remember.data)
             next_page = request.args.get('next') #gets the page they were trying to access
-            flash(f'Welcome Back {user.username}!', 'success')
+            flash(f'Welcome Back {user.username}!', 'label')
             #turnary conditional
             return redirect(next_page) if next_page else redirect(url_for('home'))
         else:
-            flash('log in unsuccessful, try again', 'danger')
+            flash('log in unsuccessful, try again', 'help-block')
     return render_template('login.html', title='Login', form=form)
 
 @app.route("/logout")
 def logout():
     logout_user()
-    return redirect(url_for('home'))
+    return redirect(url_for('login'))
 
 def save_picture(form_picture):
     #saving the name of the picture as a random sequence
@@ -93,24 +77,44 @@ def save_picture(form_picture):
     i.save(picture_path)
     return picture_fn
 
-@app.route("/account", methods=['GET', 'POST'])
+@app.route("/profile", methods=['GET'])
 @login_required
-def account():
-    form = UpdateAccountForm()
-    if form.validate_on_submit():
-        if form.picture.data:
-            picture_file=save_picture(form.picture.data)
-            current_user.image_file=picture_file
+def profile():
+    return render_template('profile.html', title='PROFILE')
 
-        current_user.username=form.username.data
-        current_user.email=form.email.data
-        db.session.commit()
-        flash('Account is updated.', 'success')
-        return redirect(url_for('account'))
-    elif request.method=='GET':
-        form.username.data=current_user.username
-        form.email.data=current_user.email
-    #assigns the profile pic to the one uploaded by user
-    image_file = url_for('static', filename='profile_pic/' + current_user.image_file)
-    #pass in all the required data for getting the profile
-    return render_template('account.html', title='Account', image_file=image_file, form=form)
+# @app.route("/edit-profile", methods=['GET', 'POST'])
+# @login_required
+# def editAccount():
+#     form = UpdateAccountForm()
+#     if form.validate_on_submit():
+#         if form.picture.data:
+#             picture_file=save_picture(form.picture.data)
+#             current_user.image_file=picture_file
+#         current_user.username=form.username.data
+#         current_user.email=form.email.data
+#         db.session.commit()
+#         flash('Account is updated.', 'label')
+#         return redirect(url_for('account'))
+#     elif request.method=='GET':
+#         form.username.data=current_user.username
+#         form.email.data=current_user.email
+#     #assigns the profile pic to the one uploaded by user
+#     image_file = url_for('static', filename='profile_pic/' + current_user.image_file)
+#     #pass in all the required data for getting the profile
+#     return render_template('profile.html', title='PROFILE', image_file=image_file, form=form)
+
+@app.route("/search-page", methods=['GET'])
+@login_required
+def search():
+    return render_template('search-page.html', title='Search')
+
+@app.route("/create", methods=['GET', 'POST'])
+@login_required
+def createItem():
+    form = CreateForm()
+
+    if form.validate_on_submit():
+        flash('Your account has been created!', 'success')
+        return redirect(url_for('home'))
+
+    return render_template('create.html', title='Create Listing', form=form)
