@@ -11,14 +11,23 @@
   <div class="containerHome">
     <!-- <img src="assets/images/textbooks.svg" alt="Texchange Logo" class="logo">  -->
 
-    <div class="heading"><img src="assets/images/stack.svg" alt="Texchange Logo" class="texchangeLogo">Texchange</div>
+    <div class="heading"><img src="{{ url_for('static', filename='assets/images/stack.svg') }}" alt="Texchange Logo"
+        class="texchangeLogo">Texchange</div>
     <div class="login_form">
-      <form class="form" (submit)="login()" #f="ngForm" method="POST" action=''>
+      {% with messages = get_flashed_messages() %}
+      {% if messages %}
+      <ul class="flashes">
+        {% for message in messages %}
+        <li>{{ message }}</li>
+        {% endfor %}
+      </ul>
+      {% endif %}
+      {% endwith %}
+      <form class="form" method="POST" action=''>
         {{ form.hidden_tag() }}
         <div class="form-group">
           <label for="email">Email</label>
-          <input type="email" class="form-control" name="email" [(ngModel)]="credentials.email" #username="ngModel"
-            required>
+          <input type="email" class="form-control" name="email" [(ngModel)]="credentials.email">
 
           {% if form.email.errors %}
           {% for error in form.email.errors %}
@@ -29,8 +38,7 @@
         </div>
         <div class="form-group">
           <label for="password">Password</label>
-          <input type="password" class="form-control" name="password" [(ngModel)]="credentials.password"
-            #password="ngModel" required>
+          <input type="password" class="form-control" name="password" [(ngModel)]="credentials.password">
           {% if form.password.errors %}
           {% for error in form.password.errors %}
           <div class="help-block">{{ error }}</div>
@@ -38,18 +46,22 @@
           {% endif %}
         </div>
         <div class="form-group3">
-          <button (click)="login()" class="btn-primary">SIGN IN</button>
-          <!-- <div *ngIf="f.submitted && !authenticationFlag" class="help-block">*Username or password is incorrect</div> -->
+          {{ form.submit(class="btn-primary") }}
         </div>
-        <div class="form-group4">
-          <button [routerLink]="['/register']" class="btn-create">CREATE ACCOUNT</button>
-        </div>
-      </form>
-      <div class="reset_password">
-        <p><a class="reset_password" href="/login" target="_top">Forgot your password?</a></p>
-      </div>
+        <!-- <div *ngIf="f.submitted && !authenticationFlag" class="help-block">*Username or password is incorrect</div> -->
+    </div>
+
+    <div class="form-group4">
+      <div type="submit"></div>
+      <a href="{{ url_for('register') }}" class="btn-create-link">Create Account</a>
+
+    </div>
+    </form>
+    <div class="reset_password">
+      <p><a class="reset_password" href="/login" target="_top" class="forgot">Forgot your password?</a></p>
     </div>
   </div>
+</div>
 </div>
 
 </html>
