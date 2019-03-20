@@ -1,0 +1,78 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto+Mono');
+
+* {
+    font-family: 'Roboto Mono', monospace;
+   
+    /* background-color: white; */
+    box-sizing: border-box;
+    overflow: auto;
+    
+}
+
+.heading {
+    padding-top: 0.5%;
+    padding-bottom: 0.2%;
+    font-size: 20px;
+    color: black;
+     padding-left: 7.6%;
+    background: #5dbfe2; 
+}
+.authorFilter, .priceFilter, .classFilter {
+    display:inline-block;
+    width: 20%;
+    margin-left: 2%;
+}
+.titleFilter {
+    margin-left: 7.6%;
+    display:inline-block;
+    width: 20%;
+}
+.filters {
+    padding-left: 7.6%;
+    color: black;
+    background: #5dbfe2;
+    font-size: 15px;
+}
+.filter-names {
+    background: #5dbfe2;
+    padding-bottom: 1.5%;
+    border-bottom: 1px solid rgb(211, 213, 212);
+}
+input {
+    border-radius: 6px;
+    /* border: 1px solid #D9DEE8; */
+    width: 85%;
+}
+.filter-image {
+    width: 1.2%;
+    height: 4%;
+}
+
+.textbook-1 {
+    display: inline-block;
+    margin-left: 7.6%;
+    padding-bottom: 1%;
+    margin-bottom: 2%;
+    margin-right: 5%;
+    margin-top: 1.8%;
+    padding-left: 1%;
+    width: 20%;
+    padding-top: 1%;
+    box-sizing: border-box;
+    border-radius: 2px;
+    /* box-shadow: 1px 1px 5px rgb(109, 110, 113); */
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+.author, .price, .class, .condition, .title {
+    float: left;
+    margin-left: 2%;
+    width: 110px;
+}
+
+.title, .title-name, .author, .author-name, .price, .price-name, .class, .class-name, .condition, .condition-name {
+    padding-bottom: 5px;
+    font-size: 12px;
+}
+.title-name, .author-name, .price-name, .class-name, .condition-name {
+    color: gray;
+}
