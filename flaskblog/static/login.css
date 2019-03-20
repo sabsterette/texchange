@@ -9,6 +9,19 @@
     overflow: auto;
     
 }
+
+.fail {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 20px;
+    margin-top: 2%;
+    margin-left: 7.6%;
+    color: rgb(226, 93, 122);
+    background-color: white;
+  
+}
+.flashes {
+    background-color: white;
+}
   
 .texchangeLogo {
     display: inline-block;
