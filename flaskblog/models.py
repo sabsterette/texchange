@@ -32,4 +32,4 @@ class Post(db.Model):
     #edition = db.Column(db.Integer)
 
     def __repr__(self):
-        return f"Post('{self.title}', '{self.date_posted}', '{self.user_id}')"
+        return f"Post('{self.title}', '{self.price}', '{self.date_posted}', '{self.user_id}')"
