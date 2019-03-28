@@ -13,7 +13,9 @@ class User(db.Model, UserMixin):
     image_file = db.Column(db.String(20), nullable=False, default='default.jpg')
     password = db.Column(db.String(60), nullable=False)
     description = db.Column(db.String(255), nullable=True)
+    name = db.Column(db.String(255))
     posts = db.relationship('Post', backref='author', lazy=True)
+    reviews = db.relationship('Reviews', backref='reviewee', lazy=True)
 
     #repr is basically toString
     def __repr__(self):
@@ -22,14 +24,23 @@ class User(db.Model, UserMixin):
 class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(100), nullable=False)
-    authors = db.Column(db.String(255), nullable=False)
     date_posted = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     description = db.Column(db.String(255))
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     price = db.Column(db.Float, nullable=False)
     quality = db.Column(db.String(50), nullable=False)
     class_id = db.Column(db.String(7), nullable=False)
-    #edition = db.Column(db.Integer)
+    edition = db.Column(db.Integer, nullable=False)
 
     def __repr__(self):
-        return f"Post('{self.title}', '{self.price}', '{self.date_posted}', '{self.user_id}')"
+        return f"Post('{self.title}', '{self.date_posted}')"
+
+class Reviews(db.Model):
+    review_id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    rating = db.Column(db.Integer, nullable=False)
+    description = db.Column(db.String(255))
+
+    #repr is basically toString
+    def __repr__(self):
+        return f"Reviews('{self.rating}', '{self.description}')"
