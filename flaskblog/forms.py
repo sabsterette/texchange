@@ -43,10 +43,10 @@ class LoginForm (FlaskForm):
 class CreateForm (FlaskForm):
     title = StringField('Title', validators=[DataRequired()])
     authors = StringField('Authors', validators=[DataRequired()])
-    price = DecimalField('Price', places=2, validators=[DataRequired()])
+    price = DecimalField('Price', places=3, validators=[DataRequired()])
     course = StringField('Class Name', validators=[DataRequired()])
-    quality = StringField('Quality',validators=[DataRequired()])
-     #choices=[('Brand New', 'Lightly Used', 'Used', 'Old'
+    quality = SelectField('Quality', choices=[('New', 'Brand New'), ('Slightly Used', 'Slightly Used'), 
+            ('Old', 'Old')], validators=[DataRequired()])
     description = TextAreaField('Description', validators=[Length(max=140)])
     submit = SubmitField('Create Item!')
 
@@ -63,10 +63,19 @@ class UpdateAccountForm (FlaskForm):
         if username.data != current_user.username:
             user = User.query.filter_by(username=username.data).first()
             if user:
-                raise ValidationError('Username already taken oops!')
+                raise ValidationError('Oops! Username already taken!')
 
     def validate_email(self, email):
         if email.data != current_user.email:
             user = User.query.filter_by(email=email.data).first()
             if user:
-                raise ValidationError('Email already taken oops!')
+                raise ValidationError('Oops! That email is already linked to an account!')
+
+class SearchForm(FlaskForm):
+    title=StringField('Title')
+    authors=StringField('Author')
+    sort_by=SelectField('Sort By: ', choices=[('select one', '--Select One--'), ('price', 'Price'),
+        ('classid', 'Class'), ('condition', 'Condition'), ('date', 'Date Posted')])
+    submit=SubmitField('Search')
+
+    
