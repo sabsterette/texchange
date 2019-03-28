@@ -5,7 +5,7 @@ from PIL import Image
 from flask import render_template, url_for, flash, redirect, request
 # render_template allows returning of files,
 # flash allows to send flash messagees
-from flaskblog.forms import RegistrationForm, LoginForm, UpdateAccountForm, CreateForm
+from flaskblog.forms import RegistrationForm, LoginForm, UpdateAccountForm, CreateForm, SearchForm
 from flaskblog import app, db, bcrypt
 from flaskblog.models import User, Post
 from flask_login import login_user, current_user, logout_user, login_required
@@ -107,10 +107,48 @@ def profile():
 #     #pass in all the required data for getting the profile
 #     return render_template('profile.html', title='PROFILE', image_file=image_file, form=form)
 
-@app.route("/search-page", methods=['GET'])
+@app.route("/search", methods=['GET', 'POST'])
 @login_required
 def search():
-    return render_template('search-page.html', title='Search')
+    searchForm = SearchForm()
+    message = "Search for a textbook!"
+    posts=Post.query.all()
+    if searchForm.validate_on_submit():
+        message=""
+        return results(searchForm)
+    return render_template('search.html', title='Search', form=searchForm, message=message, posts=posts)
+
+#function used for searching and retrieving posts
+#All the if statements are used for getting the post to be sort by a certain property
+#Uses post.query.filter and post.query.order_by from flask sqlalchemy
+@app.route("/results", methods=['GET', 'POST'])
+def results(searchForm):
+    #uses a list results to store the posts 
+    results=[]
+    if searchForm.sort_by.data == 'price':
+        results=Post.query.filter(Post.title.like('%'+searchForm.title.data+'%'),
+        Post.authors.like('%'+searchForm.authors.data+'%')).order_by(Post.price).all()
+    if searchForm.sort_by.data == 'classid':
+        results=Post.query.filter(Post.title.like('%'+searchForm.title.data+'%'),
+        Post.authors.like('%'+searchForm.authors.data+'%')).order_by(Post.class_id).all()
+    if searchForm.sort_by.data == 'condition':
+        results=Post.query.filter(Post.title.like('%'+searchForm.title.data+'%'),
+        Post.authors.like('%'+searchForm.authors.data+'%')).order_by(Post.quality).all()
+    if searchForm.sort_by.data == 'date':
+        results=Post.query.filter(Post.title.like('%'+searchForm.title.data+'%'),
+        Post.authors.like('%'+searchForm.authors.data+'%')).order_by(Post.date_posted).all()
+    if searchForm.sort_by.data == 'select one':
+        results=Post.query.filter(Post.title.like('%'+searchForm.title.data+'%'),
+        Post.authors.like('%'+searchForm.authors.data+'%')).all()
+    if results:
+        message=f'Showing search results for {searchForm.title.data} {searchForm.authors.data}'
+        return render_template('search.html', title='Search Results', form=searchForm, message=message, posts=results)
+    else:
+        flash('No Search Results Found', 'fail')
+        return redirect(url_for('search'))
+
+#Post.class_id.like('%'+searchForm.class_id.data+'%')
+
 
 @app.route("/create", methods=['GET', 'POST'])
 @login_required
