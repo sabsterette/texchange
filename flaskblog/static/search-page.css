@@ -9,6 +9,7 @@
     
 }
 
+
 .success {
     font-family: 'Roboto Mono', monospace;
     font-size: 20px;
@@ -30,13 +31,6 @@
 
 .message {
     font-size: 40%;
-}
-
-.authorFilter, .priceFilter, .classFilter {
-    display:inline-block;
-    width: 20%;
-    margin-left: 2%;
-    font-size: 15px;
 }
 
 .btn-search {
@@ -77,6 +71,20 @@
     padding-bottom: 1.5%;
     border-bottom: 1px solid rgb(211, 213, 212);
 }
+
+a {
+    text-decoration: none;
+    color: #5DBFE2;
+}
+a:hover {
+    color:rgb(113,111,109);
+}
+
+.click-me {
+    margin-left: 2%;
+    font-size: 12px;
+}
+
 input {
     border-radius: 6px;
     /* border: 1px solid #D9DEE8; */
@@ -102,17 +110,17 @@ input {
     /* box-shadow: 1px 1px 5px rgb(109, 110, 113); */
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
-.author, .price, .class, .condition, .title {
+.author, .price, .class, .condition, .title, .edition {
     float: left;
     margin-left: 2%;
     width: 110px;
 }
 
-.title, .title-name, .author, .author-name, .price, .price-name, .class, .class-name, .condition, .condition-name {
+.title, .title-name, .author, .author-name, .price, .price-name, .class, .class-name, .condition, .condition-name, .edition-name, .edition {
     padding-bottom: 5px;
     font-size: 12px;
 }
-.title-name, .author-name, .price-name, .class-name, .condition-name {
+.title-name, .author-name, .price-name, .class-name, .condition-name, .edition-name {
     color: gray;
 }
 .submit_data {
