@@ -42,11 +42,12 @@ class LoginForm (FlaskForm):
 
 class CreateForm (FlaskForm):
     title = StringField('Title', validators=[DataRequired()])
+    edition = StringField('Edition')
     authors = StringField('Authors', validators=[DataRequired()])
     price = DecimalField('Price', places=3, validators=[DataRequired()])
     course = StringField('Class Name', validators=[DataRequired()])
-    quality = SelectField('Quality', choices=[('New', 'Brand New'), ('Slightly Used', 'Slightly Used'), 
-            ('Old', 'Old')], validators=[DataRequired()])
+    quality = SelectField('Quality', choices=[('Brand New', 'Brand New'), ('Lightly Used', 'Lightly Used'),
+    ('Used', 'Used'), ('Old', 'Old')], validators=[DataRequired()])
     description = TextAreaField('Description', validators=[Length(max=140)])
     submit = SubmitField('Create Item!')
 
