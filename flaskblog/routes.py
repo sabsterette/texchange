@@ -81,10 +81,11 @@ def save_picture(form_picture):
     i.save(picture_path)
     return picture_fn
 
-@app.route("/profile", methods=['GET'])
+@app.route("/profile/<userprofile>", methods=['GET'])
 @login_required
-def profile():
-    return render_template('profile.html', title='PROFILE')
+def profile(userprofile):
+    user=User.query.filter_by(username=userprofile).first()
+    return render_template('profile.html', title='PROFILE', user=user)
 
 # @app.route("/edit-profile", methods=['GET', 'POST'])
 # @login_required
@@ -113,10 +114,12 @@ def search():
     searchForm = SearchForm()
     message = "Search for a textbook!"
     posts=Post.query.all()
+    users=User.query.all()
     if searchForm.validate_on_submit():
         message=""
         return results(searchForm)
-    return render_template('search.html', title='Search', form=searchForm, message=message, posts=posts)
+    return render_template('search.html', title='Search', form=searchForm, 
+    message=message, posts=posts)
 
 #function used for searching and retrieving posts
 #All the if statements are used for getting the post to be sort by a certain property
@@ -125,6 +128,7 @@ def search():
 def results(searchForm):
     #uses a list results to store the posts 
     results=[]
+    users=User.query.all()
     if searchForm.sort_by.data == 'price':
         results=Post.query.filter(Post.title.like('%'+searchForm.title.data+'%'),
         Post.authors.like('%'+searchForm.authors.data+'%')).order_by(Post.price).all()
@@ -142,7 +146,8 @@ def results(searchForm):
         Post.authors.like('%'+searchForm.authors.data+'%')).all()
     if results:
         message=f'Showing search results for {searchForm.title.data} {searchForm.authors.data}'
-        return render_template('search.html', title='Search Results', form=searchForm, message=message, posts=results)
+        return render_template('search.html', title='Search Results', form=searchForm,
+         message=message, posts=results)
     else:
         flash('No Search Results Found', 'fail')
         return redirect(url_for('search'))
@@ -155,7 +160,7 @@ def results(searchForm):
 def createItem():
     form = CreateForm()
     if form.validate_on_submit():
-        post = Post(title=form.title.data, authors=form.authors.data, 
+        post = Post(title=form.title.data, edition=form.edition.data, authors=form.authors.data, 
         price=form.price.data, user_id=current_user.id, class_id=form.course.data,
         quality=form.quality.data, description=form.description.data)
         db.session.add(post)
@@ -163,3 +168,9 @@ def createItem():
         flash('Your item has been created!', 'success')
         return redirect(url_for('home'))
     return render_template('create.html', title='Create Listing', form=form)
+
+@app.route("/items/<post_id>")
+def items(post_id):
+    post=Post.query.get(post_id)
+    user=User.query.get(post.user_id)
+    return render_template('items.html', post=post, user=user)
