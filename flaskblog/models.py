@@ -24,16 +24,17 @@ class User(db.Model, UserMixin):
 class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(100), nullable=False)
+    authors = db.Column(db.String(100), nullable=False)
     date_posted = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     description = db.Column(db.String(255))
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     price = db.Column(db.Float, nullable=False)
     quality = db.Column(db.String(50), nullable=False)
     class_id = db.Column(db.String(7), nullable=False)
-    edition = db.Column(db.Integer, nullable=False)
+    edition = db.Column(db.Integer)
 
     def __repr__(self):
-        return f"Post('{self.title}', '{self.date_posted}')"
+        return f"Post('{self.title}', '{self.price}', '{self.date_posted}')"
 
 class Reviews(db.Model):
     review_id = db.Column(db.Integer, primary_key=True)
@@ -44,3 +45,5 @@ class Reviews(db.Model):
     #repr is basically toString
     def __repr__(self):
         return f"Reviews('{self.rating}', '{self.description}')"
+
+    
