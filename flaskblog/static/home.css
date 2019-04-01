@@ -54,20 +54,28 @@ a {
 }
 
 
-.author, .price, .class, .condition, .title {
+.author, .price, .class, .condition, .title, .edition, .click-me {
     float: left;
     margin-left: 7.6%;
     width: 110px;
 }
 
-.title, .title-name, .author, .author-name, .price, .price-name, .class, .class-name, .condition, .condition-name {
+.click-me {
+    margin-left: 7.6%;
+    font-size: 12px;
+}
+
+
+.title, .title-name, .author, .author-name, .price, .price-name, .class, .class-name, .condition, .condition-name, .edition, .edition-name{
     padding-bottom: 5px;
 }
 .class-name, .condition-name {
     height: 26.5px;
     color: black;
 }
+
 .textbook-1 {
+    display: inline-block;
     box-sizing: border-box;
     overflow: auto;
     border: 1px dotted #5DBFE2;
