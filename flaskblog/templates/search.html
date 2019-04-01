@@ -23,7 +23,8 @@
                 <img src="{{ url_for('static', filename='assets/images/settings-black.svg')}}" alt="settings"
                     class="dropbtn">
                 <div class="dropdown-content">
-                    <a href="/profile"><img src="{{ url_for('static', filename='assets/images/avatar.svg')  }}"
+                    <a href="{{ url_for('profile', userprofile=current_user.username )}}"><img
+                            src="{{ url_for('static', filename='assets/images/avatar.svg')  }}"
                             class="profileDrop">Profile</a>
                     <!-- <a *ngIf="auth.isLoggedIn()" (click)="auth.logout()"><img src="assets/images/turn-off.svg" class="signOutDrop">Logout</a> -->
                     <a href="/home"><img src="{{ url_for('static', filename='assets/images/information.svg') }}"
@@ -72,7 +73,7 @@
                 {{ form.authors(class="searchBar") }}
                 {% endif %}
 
-                <div class="titleFilter">
+                <div class="sortby">
                     <label for="title">Sort By</label>
                 </div>
                 {% if form.sort_by.errors %}
@@ -116,6 +117,16 @@
         <div class="title-name">
             {{ post.title }}
         </div>
+        <div class="edition">
+            Edition:
+        </div>
+        <div class="edition-name">
+            {% if post.edition %}
+            {{ post.edition }}
+            {% else %}
+            -
+            {% endif %}
+        </div>
         <div class="author">
             By:
         </div>
@@ -140,6 +151,8 @@
         <div class="condition-name">
             {{ post.quality }}
         </div>
+        <a href="{{ url_for('items', post_id=post.id) }}" class="click-me" target="_blank">
+            view more info</a>
     </div>
     {% endfor %}
 </body>
