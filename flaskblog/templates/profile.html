@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-<title>CREATE LISTING</title>
+<title>{{ user.username }}</title>
 <link rel="icon" type="image/ico" href="{{ url_for('static', filename='assets/images/stack.svg') }}" />
 
 <head>
@@ -22,8 +22,8 @@
       <div class="dropdown" style="float:right">
         <img src="{{ url_for('static', filename='assets/images/settings-black.svg')}}" alt="settings" class="dropbtn">
         <div class="dropdown-content">
-          <a href="/profile"><img src="{{ url_for('static', filename='assets/images/avatar.svg')  }}"
-              class="profileDrop">Profile</a>
+          <a href="{{ url_for('profile', userprofile=current_user.username )}}"><img
+              src="{{ url_for('static', filename='assets/images/avatar.svg')  }}" class="profileDrop">Profile</a>
           <a href="/home"><img src="{{ url_for('static', filename='assets/images/information.svg') }}"
               class="supportDrop">Help</a>
           <a href="/logout"><img src="{{ url_for('static', filename='assets/images/turn-off.svg') }}"
@@ -40,14 +40,14 @@
 
       <!-- <div class="col-md-6"> -->
 
-      <h1 class="form-signin-heading">Your Profile</h1>
+      <h1 class="form-signin-heading">{{ user.username }}'s Texchange page!</h1>
 
       <div class="form-horizontal">
         <div class="form-group">
-          <label class="col-sm-3-control-label">{{ current_user.username }}</label>
+          <label class="col-sm-3-control-label">{{ user.username }}</label>
         </div>
         <div class="form-group">
-          <label class="col-sm-3-control-label">{{ current_user.email }}</label>
+          <label class="col-sm-3-control-label">{{ user.email }}</label>
         </div>
       </div>
 
