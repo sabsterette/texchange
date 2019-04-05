@@ -150,7 +150,8 @@ def results(searchForm):
          message=message, posts=results)
     else:
         flash('No Search Results Found', 'fail')
-        return redirect(url_for('search'))
+        return render_template('search.html', title='Search Results', form=searchForm,
+         posts=results)
 
 #Post.class_id.like('%'+searchForm.class_id.data+'%')
 
@@ -174,3 +175,9 @@ def items(post_id):
     post=Post.query.get(post_id)
     user=User.query.get(post.user_id)
     return render_template('items.html', post=post, user=user)
+
+@app.route("/editItem/<post_id>")
+def editItem(post_id):
+    post=Post.query.get(post_id)
+    user=User.query.get(post.user_id)
+    return render_template('edit-item.html', post=post, user=user)
