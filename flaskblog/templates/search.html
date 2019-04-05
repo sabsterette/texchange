@@ -97,14 +97,12 @@
     <div class="messages">
         {{ message }}
     </div>
-    <div class="success">
+    <div class="messages">
         {% with messages = get_flashed_messages() %}
         {% if messages %}
-        <ol class="flashes">
-            {% for message in messages %}
-            <li class="flashes">{{ message }}</li>
-            {% endfor %}
-        </ol>
+        {% for message in messages %}
+        {{ message }}
+        {% endfor %}
         {% endif %}
         {% endwith %}
     </div>
