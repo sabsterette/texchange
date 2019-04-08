@@ -3,7 +3,8 @@ autopep8==1.4.3
 bcrypt==3.1.6
 cffi==1.12.2
 Click==7.0
-entrypoints==0.3Flask==1.0.2
+entrypoints==0.3
+Flask==1.0.2
 Flask-Bcrypt==0.7.1
 Flask-Login==0.4.1
 Flask-SQLAlchemy==2.3.2

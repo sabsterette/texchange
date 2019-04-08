@@ -171,13 +171,30 @@ def createItem():
     return render_template('create.html', title='Create Listing', form=form)
 
 @app.route("/items/<post_id>")
+@login_required
 def items(post_id):
     post=Post.query.get(post_id)
     user=User.query.get(post.user_id)
     return render_template('items.html', post=post, user=user)
 
 @app.route("/editItem/<post_id>")
+@login_required
 def editItem(post_id):
     post=Post.query.get(post_id)
     user=User.query.get(post.user_id)
     return render_template('edit-item.html', post=post, user=user)
+
+# Delete Listing
+@app.route("/delete_listing/<post_id>", methods=['POST'])
+@login_required
+def delete_listing(post_id):
+   # Create delete_this
+   delete_this = Post.query.get(post_id)
+   # Delete listing
+   db.session.delete(delete_this)
+   # Commit to db
+   db.session.commit()
+   # Flash message to alert user
+   flash('This listing has been deleted', 'success')
+   return redirect(url_for('home'))
+
