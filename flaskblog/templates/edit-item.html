@@ -1,13 +1,14 @@
 <!DOCTYPE html>
 <html>
-<title>{{ post.title }}</title>
+<title>EDIT LISTING</title>
 <link rel="icon" type="image/ico" href="{{ url_for('static', filename='assets/images/stack.svg') }}" />
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
 <head>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='items.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='items-edit.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='nav.css') }}">
 
 </head>
@@ -39,83 +40,129 @@
     </ul>
 </div>
 <h1>EDIT YOUR LISTING</h1>
+<div class="textbooks">
+    <form class="textbook-1" #f="ngForm" action='' method='POST'>
+        {{ form.hidden_tag() }}
+        <div class="title">
+            <label for="title">Title</label>
+        </div>
+        {% if form.title.errors %}
+        {{ form.title(class="title-name") }}
+        {% for error in form.title.errors %}
+        <div class="help-block">{{ error }}</div>
+        {% endfor %}
+        {% else %}
+        {{ form.title(class="title-name") }}
+        {% endif %}
+
+        <div class="edition">
+            <label for="edition">Edition</label>
+        </div>
+        {% if form.edition.errors %}
+        {{ form.edition(class="edition-name") }}
+        {% for error in form.edition.errors %}
+        <div class="help-block">{{ error }}</div>
+        {% endfor %}
+        {% else %}
+        {{ form.edition(class="edition-name") }}
+        {% endif %}
+
+        <div class="author">
+            <label for="author">Author</label>
+        </div>
+        {% if form.authors.errors %}
+        {{ form.authors(class="author-name") }}
+        {% for error in form.authors.errors %}
+        <div class="help-block">{{ error }}</div>
+        {% endfor %}
+        {% else %}
+        {{ form.authors(class="author-name") }}
+        {% endif %}
+
+        <div class="price">
+            <label for="price">Price</label>
+        </div>
+        {% if form.price.errors %}
+        {{ form.price(class="price-name") }}
+        {% for error in form.price.errors %}
+        <div class="help-block">{{ error }}</div>
+        {% endfor %}
+        {% else %}
+        {{ form.price(class="price-name") }}
+        {% endif %}
+
+        <div class="class">
+            <label for="class">Class</label>
+        </div>
+        {% if form.course.errors %}
+        {{ form.course(class="class-name") }}
+        {% for error in form.course.errors %}
+        <div class="help-block">{{ error }}</div>
+        {% endfor %}
+        {% else %}
+        {{ form.course(class="class-name") }}
+        {% endif %}
+
+        <div class="condition">
+            <label for="condition">Condition</label>
+        </div>
+        {% if form.quality.errors %}
+        {{ form.quality(class="condition-name") }}
+        {% for error in form.quality.errors %}
+        <div class="help-block">{{ error }}</div>
+        {% endfor %}
+        {% else %}
+        {{ form.quality(class="condition-name") }}
+        {% endif %}
+
+        <div class="description">
+            <label for="description">Description</label>
+        </div>
+        {% if form.description.errors %}
+        {{ form.description(class="description-name") }}
+        {% for error in form.description.errors %}
+        <div class="help-block">{{ error }}</div>
+        {% endfor %}
+        {% else %}
+        {{ form.description(class="description-name") }}
+        {% endif %}
+
+        <!-- <div class="required">
+          *denotes required fields.
+        </div> -->
+        <div class="submit_data_div">
+            <div type="submit">
+            </div>
+            {{ form.submit(class="submit-btn") }}
+        </div>
+    </form>
+</div>
+
 <!-- Button trigger modal -->
 <button type="button" class="trigger-btn" data-toggle="modal" data-target="#deleteModal">
-       Delete
-</button>  
-      <!-- Modal -->
-      <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
+    Delete
+</button>
+<!-- Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
             <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-              <h4 class="modal-title" id="myModalLabel">Are you sure?</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Are you sure?</h4>
             </div>
             <div class="modal-body">
-              <p>Do you really want to delete this listing? This action cannot be undone. </p>
+                <p>Do you really want to delete this listing? This action cannot be undone. </p>
             </div>
             <div class="modal-footer">
-              <!-- <button type="button" class="btn btn-info" data-dismiss="modal">Cancel</button> -->
-              <form action="{{url_for('delete_listing', post_id=post.id)}}" method="POST">
+                <!-- <button type="button" class="btn btn-info" data-dismiss="modal">Cancel</button> -->
+                <form action="{{url_for('delete_listing', post_id=post.id)}}" method="POST">
                     <input class="btn btn-danger" type="submit" value="Delete">
                 </form>
             </div>
-          </div>
-        </div>
-      </div>
-<div class="textbooks">
-    <div class="textbook-1">
-        <div class="title">
-            Title:
-        </div>
-        <div class="title-name">
-            {{ post.title }}
-        </div>
-        <div class="edition">
-            Edition:
-        </div>
-        <div class="edition-name">
-            {% if post.edition %}
-            {{ post.edition }}
-            {% else %}
-            -
-            {% endif %}
-        </div>
-        <div class="author">
-            By:
-        </div>
-        <div class="author-name">
-            {{ post.authors }}
-        </div>
-        <div class="price">
-            Price:
-        </div>
-        <div class="price-name">
-            ${{ post.price }}
-        </div>
-        <div class="class">
-            Class:
-        </div>
-        <div class="class-name">
-            {{ post.class_id }}
-        </div>
-        <div class="condition">
-            Condition:
-        </div>
-        <div class="condition-name">
-            {{ post.quality }}
-        </div>
-        <div class="description">
-            Description:
-        </div>
-        <div class="description-name">
-            {% if post.description %}
-            {{ post.description }}
-            {% else %}
-            -
-            {% endif %}
         </div>
     </div>
 </div>
+
 
 </html>

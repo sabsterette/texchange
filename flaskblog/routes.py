@@ -5,7 +5,8 @@ from PIL import Image
 from flask import render_template, url_for, flash, redirect, request
 # render_template allows returning of files,
 # flash allows to send flash messagees
-from flaskblog.forms import RegistrationForm, LoginForm, UpdateAccountForm, CreateForm, SearchForm
+from flaskblog.forms import RegistrationForm, LoginForm, CreateForm,\
+ SearchForm, editItemForm
 from flaskblog import app, db, bcrypt
 from flaskblog.models import User, Post
 from flask_login import login_user, current_user, logout_user, login_required
@@ -141,6 +142,9 @@ def results(searchForm):
     if searchForm.sort_by.data == 'date':
         results=Post.query.filter(Post.title.like('%'+searchForm.title.data+'%'),
         Post.authors.like('%'+searchForm.authors.data+'%')).order_by(Post.date_posted).all()
+    if searchForm.sort_by.data == 'edition':
+        results=Post.query.filter(Post.title.like('%'+searchForm.title.data+'%'),
+        Post.authors.like('%'+searchForm.authors.data+'%')).order_by(Post.edition).all()
     if searchForm.sort_by.data == 'select one':
         results=Post.query.filter(Post.title.like('%'+searchForm.title.data+'%'),
         Post.authors.like('%'+searchForm.authors.data+'%')).all()
@@ -171,18 +175,38 @@ def createItem():
     return render_template('create.html', title='Create Listing', form=form)
 
 @app.route("/items/<post_id>")
-@login_required
 def items(post_id):
     post=Post.query.get(post_id)
     user=User.query.get(post.user_id)
     return render_template('items.html', post=post, user=user)
 
-@app.route("/editItem/<post_id>")
-@login_required
+@app.route("/editItem/<post_id>", methods=['GET', 'POST'])
 def editItem(post_id):
     post=Post.query.get(post_id)
     user=User.query.get(post.user_id)
-    return render_template('edit-item.html', post=post, user=user)
+    form=editItemForm()
+    #update information if need to
+    if form.validate_on_submit():
+        post.title=form.title.data
+        post.edition=form.edition.data
+        post.authors=form.authors.data
+        post.price=form.price.data
+        post.class_id=form.course.data
+        post.quality=form.quality.data
+        post.description=form.description.data
+        db.session.commit()
+        flash('Your item has been updated!', 'success')
+        return redirect(url_for('home'))
+    #else display the information 
+    elif request.method=='GET':
+        form.title.data=post.title
+        form.edition.data=post.edition
+        form.authors.data=post.authors
+        form.price.data=post.price
+        form.course.data=post.class_id
+        form.quality.data=post.quality
+        form.description.data=post.description
+    return render_template('edit-item.html', form=form, post=post, user=user)
 
 # Delete Listing
 @app.route("/delete_listing/<post_id>", methods=['POST'])
@@ -197,4 +221,3 @@ def delete_listing(post_id):
    # Flash message to alert user
    flash('This listing has been deleted', 'success')
    return redirect(url_for('home'))
-
