@@ -1,0 +1,93 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto+Mono');
+
+* {
+    font-family: 'Roboto Mono', monospace;
+
+    /* background-color: white; */
+    box-sizing: border-box;
+    overflow: auto;
+
+}
+
+h3 {
+    padding-top: 2%;
+    padding-bottom: 1%;
+    font-size: 20px;
+    color: #5DBFE2;
+    padding-left: 2%;
+}
+
+.title, .author, .price, .class, .description, .condition {
+    color: rgb(113,111,109);
+    font-size: 14px;
+    width: 200px;
+    display: inline-block;
+
+  }
+
+.help-block {
+    margin-bottom: 10px;
+    color: rgb(113,111,109);
+    font-size: 10px;
+    width: 200px;
+    display: inline-block;
+}
+
+input[type="text"] {
+    color: rgb(113,111,109);
+
+  }
+
+.initial_input_all {
+    padding-left: 2%;
+
+  }
+
+
+.initial_input_control {
+    margin-left: 1%;
+    display: inline-block;
+    margin-right: 60%;
+    margin-bottom: 1%;
+    border-radius: 3px;
+
+}
+
+.required {
+    float: left;
+    padding-top: 25px;
+    padding-left: 2%;
+    font-size: 12px;
+    color: gray;
+
+  }
+
+a {
+    text-decoration: none;
+    color: #5DBFE2;
+    font-size: 16px;
+
+  }
+  a:hover {
+    color:gray;
+
+  }
+  .bar {
+    background-color:rgb(233, 231, 231);
+
+  }
+
+.submit_data {
+    background: #5DBFE2 100%;
+    text-align: center;
+    font-size: 14px;
+    color: white;
+    /* width: 100%;
+    height: 100%; */
+    border-radius: 6px;
+    width: 175.2px;
+    height: 33px;
+    margin-left: 17%;
+    margin-top: 1%;
+
+}
