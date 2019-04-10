@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<title>CREATE REVIEW</title>
+
+<head>
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='review.css') }}">
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='nav.css') }}">
+</head>
+
+<!--NAVBAR START-->
+
+<body>
+  <div class="nav">
+    <ul class="nav-ul">
+      <li><a class="home" href="/home"><img src="{{ url_for('static', filename='assets/images/stack.svg') }}"
+            alt="Texchange Logo" class="texchangeLogo"></a>
+      </li>
+      <li><a class="home" href="/search-page"><img src="{{ url_for('static', filename='assets/images/search.svg')}}"
+            alt="search page" class="searchPage"></a>
+      </li>
+      <div class="dropdown" style="float:right">
+        <img src="{{ url_for('static', filename='assets/images/settings-black.svg')}}" alt="settings" class="dropbtn">
+        <div class="dropdown-content">
+          <a href="/profile"><img src="{{ url_for('static', filename='assets/images/avatar.svg')  }}"
+              class="profileDrop">Profile</a>
+          <!-- <a *ngIf="auth.isLoggedIn()" (click)="auth.logout()"><img src="assets/images/turn-off.svg" class="signOutDrop">Logout</a> -->
+          <a href="/home"><img src="{{ url_for('static', filename='assets/images/information.svg') }}"
+              class="supportDrop">Help</a>
+          <a href="/logout"><img src="{{ url_for('static', filename='assets/images/turn-off.svg') }}"
+              class="signOutDrop">Logout</a>
+
+        </div>
+      </div>
+    </ul>
+  </div>
+
+  <!--NAVBAR END-->
+
+  <h3>Create New Review</h3>
+  <div class="initial_input_all">
+    <form class="form" #f="ngForm" action='' method='POST'>
+      {{ form.hidden_tag() }}
+      <div class="rating">
+        <label for="rating">*Rating</label>
+      </div>
+      {% if form.rating.errors %}
+      {{ form.rating(class="initial_input_control") }}
+      {% for error in form.rating.errors %}
+      <div class="help-block">{{ error }}</div>
+      {% endfor %}
+      {% else %}
+      {{ form.rating(class="initial_input_control") }}
+      {% endif %}
+
+      <div class="description">
+        <label for="description">*Description</label>
+      </div>
+      {% if form.description.errors %}
+      {{ form.description(class="initial_input_control") }}
+      {% for error in form.description.errors %}
+      <div class="help-block">{{ error }}</div>
+      {% endfor %}
+      {% else %}
+      {{ form.description(class="initial_input_control") }}
+      {% endif %}
+
+      <!-- <div class="required">
+        *denotes required fields.
+      </div> -->
+      <div class="submit_data_div">
+        <div type="submit">
+          {{ form.submit(class="submit_data") }}
+        </div>
+      </div>
+    </form>
+  </div>
+</body>
+
+</html>
