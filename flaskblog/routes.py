@@ -37,10 +37,6 @@ def home():
     return render_template('home.html', posts=posts)
 
 
-@app.route("/about")
-def about():
-    return render_template('about.html', title='About')
-
 
 @app.route("/register", methods=['GET', 'POST'])
 def register():
@@ -63,6 +59,7 @@ def register():
 @login_required
 def logout():
     logout_user()
+    flash('You have been logged out')
     return redirect(url_for('login'))
 
 def save_picture(form_picture):

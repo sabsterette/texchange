@@ -51,6 +51,9 @@ class CreateForm (FlaskForm):
     description = TextAreaField('Description', validators=[Length(max=140)])
     submit = SubmitField('Create Item!')
 
+    def validate_price(self, price):
+        if isinstance(price.data, str):
+            raise ValidationError('Must be a number')
 
 # class UpdateAccountForm (FlaskForm):
 #     # validators are constraints on the username to make sure it's a valid username

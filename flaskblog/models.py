@@ -19,7 +19,7 @@ class User(db.Model, UserMixin):
 
     #repr is basically toString
     def __repr__(self):
-        return f"User('{self.username}', '{self.email}', '{self.image_file}')"
+        return f"User('{self.username}', '{self.email}')"
 
 class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -34,7 +34,7 @@ class Post(db.Model):
     edition = db.Column(db.Integer)
 
     def __repr__(self):
-        return f"Post('{self.title}', '{self.price}', '{self.date_posted}')"
+        return f"Post('{self.title}', '{self.price}')"
 
 class Reviews(db.Model):
     review_id = db.Column(db.Integer, primary_key=True)
