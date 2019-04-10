@@ -55,6 +55,12 @@ class CreateForm (FlaskForm):
         if isinstance(price.data, str):
             raise ValidationError('Must be a number')
 
+
+class CreateReview (FlaskForm):
+    rating = SelectField('Rating',choices=[(1, '1/5'), (2, '2/5'), (3, '3/5'), (4, '4/5'), (5, '5/5')],validators=[DataRequired()])
+    description = TextAreaField('Description', validators=[Length(max=140)])
+    submit = SubmitField('Create Item!')
+
 # class UpdateAccountForm (FlaskForm):
 #     # validators are constraints on the username to make sure it's a valid username
 #     username = StringField('Username',
@@ -79,7 +85,7 @@ class SearchForm(FlaskForm):
     title=StringField('Title')
     authors=StringField('Author')
     sort_by=SelectField('Sort By: ', choices=[('select one', '--Select One--'), ('price', 'Price'),
-        ('classid', 'Class'), ('condition', 'Condition'), ('date', 'Date Posted'), 
+        ('classid', 'Class'), ('condition', 'Condition'), ('date', 'Date Posted'),
         ('edition', 'Edition')])
     submit=SubmitField('Search')
 
@@ -93,5 +99,3 @@ class editItemForm(FlaskForm):
     ('Used', 'Used'), ('Old', 'Old')], validators=[DataRequired()])
     description = TextAreaField('Description', validators=[Length(max=140)])
     submit = SubmitField('Update Item')
-
-    
