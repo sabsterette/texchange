@@ -5,7 +5,7 @@ from PIL import Image
 from flask import render_template, url_for, flash, redirect, request
 # render_template allows returning of files,
 # flash allows to send flash messagees
-from flaskblog.forms import RegistrationForm, LoginForm, CreateForm,\
+from flaskblog.forms import RegistrationForm, LoginForm, CreateForm, CreateReview, \
  SearchForm, editItemForm
 from flaskblog import app, db, bcrypt
 from flaskblog.models import User, Post
@@ -71,7 +71,7 @@ def save_picture(form_picture):
     picture_fn = random_hex + f_ext
     #gives the full path all the way to the static directory
     picture_path = os.path.join(app.root_path, 'static/profile_pic', picture_fn)
-    #Resizes file to make sure the pictures do not take up too much space 
+    #Resizes file to make sure the pictures do not take up too much space
     output_size=(125, 125)
     i=Image.open(form_picture)
     i.thumbnail(output_size)
@@ -84,6 +84,20 @@ def save_picture(form_picture):
 def profile(userprofile):
     user=User.query.filter_by(username=userprofile).first()
     return render_template('profile.html', title='PROFILE', user=user)
+
+
+@app.route("/review", methods=['GET', 'POST'])  # What is 'POST'
+@login_required
+def review():
+    form = CreateReview()
+    if form.validate_on_submit():
+        rating = Reviews(rating=form.rating.data, description=form.description.data)
+        description = User(username=form.username.data, email=form.email.data, password=hashed_password)
+        db.session.add(review)
+        db.session.commit()
+        flash('You have created a review!', 'success')
+        return redirect(url_for('home'))
+    return render_template('review.html', form=form)
 
 # @app.route("/edit-profile", methods=['GET', 'POST'])
 # @login_required
@@ -116,7 +130,7 @@ def search():
     if searchForm.validate_on_submit():
         message=""
         return results(searchForm)
-    return render_template('search.html', title='Search', form=searchForm, 
+    return render_template('search.html', title='Search', form=searchForm,
     message=message, posts=posts)
 
 #function used for searching and retrieving posts
@@ -124,7 +138,7 @@ def search():
 #Uses post.query.filter and post.query.order_by from flask sqlalchemy
 @app.route("/results", methods=['GET', 'POST'])
 def results(searchForm):
-    #uses a list results to store the posts 
+    #uses a list results to store the posts
     results=[]
     users=User.query.all()
     if searchForm.sort_by.data == 'price':
@@ -162,7 +176,7 @@ def results(searchForm):
 def createItem():
     form = CreateForm()
     if form.validate_on_submit():
-        post = Post(title=form.title.data, edition=form.edition.data, authors=form.authors.data, 
+        post = Post(title=form.title.data, edition=form.edition.data, authors=form.authors.data,
         price=form.price.data, user_id=current_user.id, class_id=form.course.data,
         quality=form.quality.data, description=form.description.data)
         db.session.add(post)
@@ -194,7 +208,7 @@ def editItem(post_id):
         db.session.commit()
         flash('Your item has been updated!', 'success')
         return redirect(url_for('home'))
-    #else display the information 
+    #else display the information
     elif request.method=='GET':
         form.title.data=post.title
         form.edition.data=post.edition
