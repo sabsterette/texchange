@@ -6,6 +6,12 @@ from flask_login import UserMixin
 def load_user(user_id):
     return User.query.get(int(user_id))
 
+# This is the model for the table "User" which holds the data relevant for users.
+# Required attributes are referenced by "nullable=False"
+# The User model is a stand-in for the table and temporarily stores values in the
+#   form of the database table and adds its data to the .db file when db.session.add(foo)
+#   is called then commits it when db.session.commit() is called where foo is the
+#   instance of the User class/model.
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(80), unique=True, nullable=False)
@@ -21,6 +27,12 @@ class User(db.Model, UserMixin):
     def __repr__(self):
         return f"User('{self.username}', '{self.email}')"
 
+# This is the model for the table "Post" which holds the data relevant for posts.
+# Required attributes are referenced by "nullable=False"
+# The Post model is a stand-in for the table and temporarily stores values in the
+#   form of the database table and adds its data to the .db file when db.session.add(foo)
+#   is called then commits it when db.session.commit() is called where foo is the
+#   instance of the Post class/model.
 class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(100), nullable=False)
@@ -36,6 +48,12 @@ class Post(db.Model):
     def __repr__(self):
         return f"Post('{self.title}', '{self.price}')"
 
+# This is the model for the table "Reviews" which holds the data relevant for reviews.
+# Required attributes are referenced by "nullable=False"
+# The Reviews model is a stand-in for the table and temporarily stores values in the
+#   form of the database table and adds its data to the .db file when db.session.add(foo) 
+#   is called then commits it when db.session.commit() is called where foo is the
+#   instance of the Reviews class/model.
 class Reviews(db.Model):
     review_id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
@@ -45,5 +63,3 @@ class Reviews(db.Model):
     #repr is basically toString
     def __repr__(self):
         return f"Reviews('{self.rating}', '{self.description}')"
-
-    
