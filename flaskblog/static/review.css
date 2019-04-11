@@ -87,7 +87,21 @@ a {
     border-radius: 6px;
     width: 175.2px;
     height: 33px;
-    margin-left: 17%;
-    margin-top: 1%;
+    margin-left: 5.4%;
+    margin-top: 1.8%;
 
+}
+
+.rating {
+  color: rgb(113,111,109);
+  font-size: 14px;
+  padding: 5px;
+}
+.description {
+  padding-left: 5px;
+}
+
+#rating, #description{
+  margin-bottom: 5px;
+  margin-right: 80%;
 }

@@ -1,7 +1,7 @@
 .textbooks {
     border: 2px solid #5DBFE2;
     margin-left: 8%;
-    margin-right: 8%;
+    margin-right: 15%;
     background-color: rgba(93, 191, 226, 0.2);
 }
 h1 {
@@ -28,22 +28,46 @@ a:hover {
     color: #5DBFE2;
 }
 
-.author, .price, .class, .condition, .title, .edition, .click-me, .description {
+ .author, .price, .class, .condition, .title, .click-me, .description {
+    height: 20px;
     float: left;
-    width: 20%;
-    padding-bottom: 5px;
+    width: 23%;
+    /* padding-bottom: 5px; */
+    
 }
 
-.title-name, .author-name, .price-name, .class-name, .condition-name, .edition-name, .description-name {
+.edition {
+    /* height: 34.4px; */
+    width: 20%;
+    height: 20px;
+    /* margin-right: 80%; */
+    display: inline-block;
+}
+
+
+ .title-name, .author-name, .price-name, .class-name, .condition-name, .description-name {
+    display: inline-block;
     padding-bottom: 5px;
     margin-bottom: 6px;
     padding-left: 2%;
-    width: 80%;
+    width: 100%;
     font-size: 12px;
     outline-style: solid;
     outline-width: 1px;
     color: rgb(113,111,160);
     
+}
+
+.edition-name {
+    display: inline-block;
+    padding-bottom: 5px;
+    margin-bottom: 6px;
+    padding-left: 2%;
+    width: 100%;
+    font-size: 12px;
+    outline-style: solid;
+    outline-width: 1px;
+    color: rgb(113,111,160);
 }
 .class-name, .condition-name {
     height: 26.5px;
