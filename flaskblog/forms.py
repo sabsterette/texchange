@@ -58,8 +58,8 @@ class CreateForm (FlaskForm):
 
 class CreateReview (FlaskForm):
     rating = SelectField('Rating',choices=[(1, '1/5'), (2, '2/5'), (3, '3/5'), (4, '4/5'), (5, '5/5')],validators=[DataRequired()])
-    description = TextAreaField('Description', validators=[Length(max=140)])
-    submit = SubmitField('Create Item!')
+    description = TextAreaField('Description')
+    submit = SubmitField('Leave Review!')
 
 # class UpdateAccountForm (FlaskForm):
 #     # validators are constraints on the username to make sure it's a valid username
