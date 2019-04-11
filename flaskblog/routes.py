@@ -86,10 +86,10 @@ def profile(userprofile):
     return render_template('profile.html', title='PROFILE', user=user)
 
 
-@app.route("/review/<userid>", methods=['GET', 'POST'])
+@app.route("/review/<userprofile>", methods=['GET', 'POST'])
 @login_required
-def review(userid):                                                      #is this a parameter
-    user = User.query.filter_by(id=userid).first()                  #idk what this is
+def review(userprofile):                                                      #is this a parameter
+    user = User.query.filter_by(username=userprofile).first()                  #idk what this is
     form = CreateReview()
     if form.validate_on_submit():
         rating = Reviews(rating=form.rating.data,
