@@ -2,6 +2,7 @@ from datetime import datetime
 from flaskblog import db, login_manager
 from flask_login import UserMixin
 
+# Signs in to the user_id's account by querying the User table.
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id))
@@ -51,7 +52,7 @@ class Post(db.Model):
 # This is the model for the table "Reviews" which holds the data relevant for reviews.
 # Required attributes are referenced by "nullable=False"
 # The Reviews model is a stand-in for the table and temporarily stores values in the
-#   form of the database table and adds its data to the .db file when db.session.add(foo) 
+#   form of the database table and adds its data to the .db file when db.session.add(foo)
 #   is called then commits it when db.session.commit() is called where foo is the
 #   instance of the Reviews class/model.
 class Reviews(db.Model):
