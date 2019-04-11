@@ -86,13 +86,15 @@ def profile(userprofile):
     return render_template('profile.html', title='PROFILE', user=user)
 
 
-@app.route("/review", methods=['GET', 'POST'])  # What is 'POST'
+@app.route("/review/<userid>", methods=['GET', 'POST'])
 @login_required
-def review():
+def review(userid):                                                      #is this a parameter
+    user = User.query.filter_by(id=userid).first()                  #idk what this is
     form = CreateReview()
     if form.validate_on_submit():
-        rating = Reviews(rating=form.rating.data, description=form.description.data)
-        description = User(username=form.username.data, email=form.email.data, password=hashed_password)
+        rating = Reviews(rating=form.rating.data,
+        description=form.description.data,
+        user_id = form.user_id)
         db.session.add(review)
         db.session.commit()
         flash('You have created a review!', 'success')
