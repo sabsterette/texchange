@@ -48,6 +48,16 @@
     border-radius: 6px;
     border: 1px solid #5DBFE2;
     margin-top: 2%;
+    margin-bottom: 2%;
 
 }
 
+a.review {
+    text-decoration: none;
+    margin-left: 38%;
+    color: rgb(113,111,109);
+    
+}
+a.review:hover {
+    color: #5DBFE2;
+}
