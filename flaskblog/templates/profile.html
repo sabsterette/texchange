@@ -47,27 +47,41 @@
       {% endif %}
       {% endwith %}
     </div>
-    <h1 class="form-signin-heading">{{ user.username }}'s profile</h1>
+    <h1 class="form-signin-heading">{{ user.username }}'s Profile</h1>
     <div class="row">
       <div class="column1">
         <div class="form-horizontal">
+          <div class="username-label">
+            Username
+          </div>
           <div class="form-group">
             <label class="col-sm-3-control-label">{{ user.username }}</label>
+          </div>
+          <div class="email-label">
+            Email
           </div>
           <div class="form-group">
             <label class="col-sm-3-control-label">{{ user.email }}</label>
           </div>
+          <div class="bio-label">
+            Bio
+          </div>
+          <div class="form-group">
+              <label class="col-sm-3-control-label">insert bio here</label>
+            </div>
         </div>
       </div>
 
       <!-- </div> -->
 
       <div class="column2">
+        <div class="review-title">
+          {{ user.username }}'s Reviews: <br>
+        </div>
         <div class="avg-rating-title">
-          {{ user.username }}'s reviews: <br>
+          Average rating:
         </div>
         <div class="avg-rating">
-          Average rating:
           {% if avg_rating %}
           {{ avg_rating }}
           {% else %}
@@ -109,9 +123,10 @@
   </div>
   {% if current_user==user %}
   <button class="editProfile">Edit Profile</button>
-  {% endif %}
+  {% else %}
   <a class="review" href="{{ url_for('review', userprofile=user.username) }}">Create a review for
     {{ user.username }} </a>
+  {% endif %}
 </body>
 
 </html>

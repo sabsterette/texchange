@@ -21,27 +21,56 @@
     float: left;
     padding-right: 5%;
     padding-left: 5%;
-    width: 60%;
+    width: 40%;
     padding-bottom: 2%;
     padding-top: 2%;
-    margin-left: 6%;
+    margin-left: 7%;
     border: 2px solid #5DBFE2;
     background-color: rgba(93, 191, 226, 0.2);
     color:rgb(113,111,109);   
+    height: 75%;
 }
 
 .column2 {
     float: left;
     padding-right: 5%;
-    padding-left: 2%;
-    margin-left: 2%;
-    width: 26%;
+    padding-left: 5%;
+    padding-top: 2%;
+    padding-bottom: 5%; 
+    margin-left: 5%;
+    width: 40%;
     border: 2px solid #5DBFE2;
     background-color: rgba(93, 191, 226, 0.2);
     color:rgb(113,111,109); 
+    height: 75%;
     
 }
 
+.username-label, .email-label, .bio-label, .review-title {
+    color: black;
+    
+}
+
+.email-label, .bio-label {
+    padding-top: 2%;
+}
+.review-title {
+    padding-bottom: 2%;
+}
+
+.avg-rating-title, .reviewer-title, .rating-title, .description-title {
+    width: 40%;
+    display: inline-block;
+}
+.avg-rating, .reviewer, .rating, .description {
+    width: 55%;
+    display: inline-block;
+}
+
+
+.description, .description-title, .avg-rating, .avg-rating-title{
+    padding-bottom: 3%;
+}
 .row:after {
     content: "";
     display: table;
@@ -55,8 +84,7 @@
 
 .col-sm-3-control-label {
     font-size: 14px;
-    padding-top: 2%;
-   
+
 }
 
 .form-signin-heading {
@@ -65,13 +93,13 @@
 }
 
 .editProfile {
-    display: flex;
-    justify-content: center;
+     /* display: flex; */
+    justify-content: center; 
     align-items: center;
-    margin-left: 49%;
+    margin-left: 37%;
     color: #5DBFE2;
     background:white 100%;
-    text-align: justify;
+    text-align: center;
     font-size: 12px;
     width: 10%;
     height: 30px;
@@ -84,8 +112,10 @@
 
 a.review {
     text-decoration: none;
-    margin-left: 38%;
+    margin-right: 8%;
+    float: right;
     color: rgb(113,111,109);
+    margin-top: 2%;
     
 }
 a.review:hover {
