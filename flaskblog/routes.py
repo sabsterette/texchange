@@ -266,11 +266,11 @@ def sendEmail(user_email, current_user_email):
     # get email to send to
     user=User.query.get(user_email)
     # get current user email to inform poster of who is interested
-    current_user=User.query.get(current_user_email)
     msg = Message(subject="[Texchange] Listing Information Request",
                       sender=app.config.get("MAIL_USERNAME"),
                       recipients=[user_email],
-                      body='Hello!\n Someone has requested more information about your listing. You can contact them at '+current_user_email+'.\n Thanks for using Texchange!')
+                      body='Hello!\n Someone has requested more information about your listing. You can contact them at '
+                      +current_user_email+f'. Their profile page is texchange.com/profile/{current_user.username}, you can go there to view their reviews.\n Thanks for using Texchange!')
     mail.send(msg)
     flash('The email has been sent! The poster will be in contact shortly.', 'success')
     return redirect(url_for('search'))
