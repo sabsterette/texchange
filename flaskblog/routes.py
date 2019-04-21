@@ -10,7 +10,8 @@ from flaskblog.forms import RegistrationForm, LoginForm, CreateForm, CreateRevie
 from flaskblog import app, db, bcrypt
 from flaskblog.models import User, Post
 from flask_login import login_user, current_user, logout_user, login_required
-
+from flask import Flask
+from flask_mail import Mail, Message
 
 @app.route("/", methods=['GET', 'POST'])
 @app.route("/login", methods=['GET', 'POST'])
@@ -234,3 +235,30 @@ def delete_listing(post_id):
    # Flash message to alert user
    flash('This listing has been deleted', 'success')
    return redirect(url_for('home'))
+
+# configure settings to send email from gmail
+mail_settings = {
+    "MAIL_SERVER": 'smtp.gmail.com',
+    "MAIL_PORT": 465,
+    "MAIL_USE_TLS": False,
+    "MAIL_USE_SSL": True,
+    "MAIL_USERNAME": 'texchange.cwru@gmail.com',
+    "MAIL_PASSWORD": 'cwru1234'
+}
+app.config.update(mail_settings)
+mail = Mail(app)
+
+# Send email to user who posted listing
+@app.route("/sendEmail/<user_email>/<current_user_email>", methods=['GET', 'POST'])
+def sendEmail(user_email, current_user_email):
+    # get email to send to
+    user=User.query.get(user_email)
+    # get current user email to inform poster of who is interested
+    current_user=User.query.get(current_user_email)
+    msg = Message(subject="[Texchange] Listing Information Request",
+                      sender=app.config.get("MAIL_USERNAME"),
+                      recipients=[user_email],
+                      body='Hello!\n Someone has requested more information about your listing. You can contact them at '+current_user_email+'.\n Thanks for using Texchange!')
+    mail.send(msg)
+    flash('The email has been sent! The poster will be in contact shortly.', 'success')
+    return redirect(url_for('search'))

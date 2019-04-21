@@ -98,7 +98,7 @@
 {% if current_user == user %}
 <a class="edit-btn" href="{{ url_for('editItem', post_id=post.id) }}">Edit Item Info</a>
 {% else %}
-<h2>Interested in this listing? <a href="#">Click here</a> to notify {{ user.username }}</h2>
+<h2>Interested in this listing? <a href="{{ url_for('sendEmail', user_email = user.email, current_user_email = current_user.email) }}">Click here</a> to notify {{ user.username }}</h2>
 {% endif %}
 
 </html>
