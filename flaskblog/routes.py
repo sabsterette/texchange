@@ -8,7 +8,7 @@ from flask import render_template, url_for, flash, redirect, request
 from flaskblog.forms import RegistrationForm, LoginForm, CreateForm, CreateReview, \
  SearchForm, editItemForm
 from flaskblog import app, db, bcrypt
-from flaskblog.models import User, Post
+from flaskblog.models import User, Post, Reviews 
 from flask_login import login_user, current_user, logout_user, login_required
 
 
@@ -62,43 +62,55 @@ def logout():
     flash('You have been logged out')
     return redirect(url_for('login'))
 
-def save_picture(form_picture):
-    #saving the name of the picture as a random sequence
-    random_hex = secrets.token_hex(8)
-    #this saves the file name as well as the extention
-    #allows us to remember the extention, we only need to remember the extention
-    _, f_ext = os.path.splitext(form_picture.filename)
-    picture_fn = random_hex + f_ext
-    #gives the full path all the way to the static directory
-    picture_path = os.path.join(app.root_path, 'static/profile_pic', picture_fn)
-    #Resizes file to make sure the pictures do not take up too much space
-    output_size=(125, 125)
-    i=Image.open(form_picture)
-    i.thumbnail(output_size)
+# def save_picture(form_picture):
+#     #saving the name of the picture as a random sequence
+#     random_hex = secrets.token_hex(8)
+#     #this saves the file name as well as the extention
+#     #allows us to remember the extention, we only need to remember the extention
+#     _, f_ext = os.path.splitext(form_picture.filename)
+#     picture_fn = random_hex + f_ext
+#     #gives the full path all the way to the static directory
+#     picture_path = os.path.join(app.root_path, 'static/profile_pic', picture_fn)
+#     #Resizes file to make sure the pictures do not take up too much space
+#     output_size=(125, 125)
+#     i=Image.open(form_picture)
+#     i.thumbnail(output_size)
 
-    i.save(picture_path)
-    return picture_fn
+#     i.save(picture_path)
+#     return picture_fn
 
 @app.route("/profile/<userprofile>", methods=['GET'])
 @login_required
 def profile(userprofile):
     user=User.query.filter_by(username=userprofile).first()
-    return render_template('profile.html', title='PROFILE', user=user)
+    reviews=user.reviews
+    ratings=0
+    if reviews:
+        for review in reviews:
+            ratings=ratings+review.rating
+        avg_rating=ratings/len(reviews)
+    else:
+        avg_rating=None 
+    return render_template('profile.html', title='PROFILE', user=user, reviews=reviews,
+    avg_rating=avg_rating)
 
 
 @app.route("/review/<userprofile>", methods=['GET', 'POST'])
 @login_required
-def review(userprofile):                                                      #is this a parameter
-    user = User.query.filter_by(username=userprofile).first()                  #idk what this is
+def review(userprofile):                                                      
+    user = User.query.filter_by(username=userprofile).first()                  
     form = CreateReview()
     if form.validate_on_submit():
-        rating = Reviews(rating=form.rating.data,
-        description=form.description.data,
-        user_id = form.user_id)
+        if form.anonymous.data == True: 
+            review=Reviews(rating=int(form.rating.data, 10), description=form.description.data, 
+            user_id=user.id, reviewer=None)
+        else:
+            review=Reviews(rating=int(form.rating.data, 10), description=form.description.data, 
+            user_id=user.id, reviewer=current_user.username)
         db.session.add(review)
         db.session.commit()
-        flash('You have created a review!', 'success')
-        return redirect(url_for('home'))
+        flash(f'You have created a review for {userprofile}!', 'success')
+        return redirect(url_for('profile', userprofile=userprofile))
     return render_template('review.html', form=form)
 
 # @app.route("/edit-profile", methods=['GET', 'POST'])

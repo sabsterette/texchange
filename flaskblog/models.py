@@ -57,9 +57,13 @@ class Post(db.Model):
 #   instance of the Reviews class/model.
 class Reviews(db.Model):
     review_id = db.Column(db.Integer, primary_key=True)
+    #user_id stores the user that is being reviewed
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    #reviewer stores the username of the reviewer 
+    reviewer = db.Column(db.String)
     rating = db.Column(db.Integer, nullable=False)
     description = db.Column(db.String(255))
+
 
     #repr is basically toString
     def __repr__(self):

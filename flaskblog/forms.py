@@ -43,7 +43,7 @@ class CreateForm (FlaskForm):
     title = StringField('Title', validators=[DataRequired()])
     edition = StringField('Edition')
     authors = StringField('Authors', validators=[DataRequired()])
-    price = DecimalField('Price', places=3, validators=[DataRequired()])
+    price = DecimalField('Price', places=2, validators=[DataRequired()])
     course = StringField('Class Name', validators=[DataRequired()])
     quality = SelectField('Quality', choices=[('Brand New', 'Brand New'), ('Lightly Used', 'Lightly Used'), ('Used', 'Used'), ('Old', 'Old')], validators=[DataRequired()])
     description = TextAreaField('Description', validators=[Length(max=140)])
@@ -55,8 +55,9 @@ class CreateForm (FlaskForm):
 
 
 class CreateReview (FlaskForm):
-    rating = SelectField('Rating',choices=[(1, '1 star'), (2, '2 star'), (3, '3 star'), (4, '4 star'), (5, '5 star')],validators=[DataRequired()])
+    rating = SelectField('Rating',choices=[('1', '1 star'), ('2', '2 star'), ('3', '3 star'), ('4', '4 star'), ('5', '5 star')], validators=[DataRequired()])
     description = TextAreaField('Description')
+    anonymous = BooleanField('Make Anonymous Review')
     submit = SubmitField('Leave Review!')
 
     # class UpdateAccountForm (FlaskForm):
