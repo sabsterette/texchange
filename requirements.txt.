@@ -27,3 +27,4 @@ SQLAlchemy==1.2.18
 Werkzeug==0.14.1
 wrapt==1.11.1
 WTForms==2.2.1
+flask-mail==0.9.1
