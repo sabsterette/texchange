@@ -71,7 +71,7 @@
               {% if user.bio %}
               {{ user.bio }}
               {% else %}
-              Add bio
+              -no bio posted-
               {% endif %}
             </label>
           </div>
@@ -94,34 +94,40 @@
           No ratings
           {% endif %}
         </div>
-        {% for review in reviews %}
-        <div class="reviewer-title">
-          Posted by:
+        <div class="reviews-all">
+          {% for review in reviews %}
+          <div class="review1">
+            <div class="reviewer-title">
+              Posted by:
+            </div>
+            <div class="reviewer">
+              {% if review.reviewer %}
+              <a class="reviewer" href="{{ url_for('profile', userprofile=review.reviewer) }}">
+                {{ review.reviewer }}
+              </a>
+              {% else %}
+              Anonymous
+              {% endif %}
+            </div>
+            <div class="rating-title">
+              Rating given:
+            </div>
+            <div class="rating">
+              {{ review.rating }}
+            </div>
+            <div class="description-title">
+              Description:
+            </div>
+            <div class="description">
+              {% if review.description %}
+              {{ review.description }}
+              {% else %}
+              -
+              {% endif %}
+            </div>
+          </div>
+          {% endfor %}
         </div>
-        <div class="reviewer">
-          {% if review.reviewer %}
-          {{ review.reviewer }}
-          {% else %}
-          Anonymous
-          {% endif %}
-        </div>
-        <div class="rating-title">
-          Rating given:
-        </div>
-        <div class="rating">
-          {{ review.rating }}
-        </div>
-        <div class="description-title">
-          Description:
-        </div>
-        <div class="description">
-          {% if review.description %}
-          {{ review.description }}
-          {% else %}
-          -
-          {% endif %}
-        </div>
-        {% endfor %}
       </div>
     </div>
 

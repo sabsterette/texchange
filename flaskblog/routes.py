@@ -24,7 +24,7 @@ def login():
         if user and bcrypt.check_password_hash(user.password, form.password.data):
             login_user(user, remember=form.remember.data)
             next_page = request.args.get('next') #gets the page they were trying to access
-            flash(f'Welcome Back {user.username}!', 'label')
+            flash(f'Welcome {user.username}!', 'label')
             #turnary conditional
             return redirect(next_page) if next_page else redirect(url_for('home'))
         else:
@@ -252,7 +252,8 @@ def sendEmail(user_email, current_user_email):
                       sender=app.config.get("MAIL_USERNAME"),
                       recipients=[user_email],
                       body='Hello!\n Someone has requested more information about your listing. You can contact them at '
-                      +current_user_email+f'. Their profile page is texchange.com/profile/{current_user.username}, you can go there to view their reviews.\n Thanks for using Texchange!')
+                      +current_user_email+f'. Their profile page is texchange.com/profile/{current_user.username}, ' +
+                      'you can go there to view their reviews.\n Thanks for using Texchange!')
     mail.send(msg)
     flash('The email has been sent! The poster will be in contact shortly.', 'success')
     return redirect(url_for('search'))

@@ -17,13 +17,22 @@ h3 {
     padding-left: 2%;
 }
 
-.title, .author, .price, .class, .description, .condition {
-    color: rgb(113,111,109);
-    font-size: 14px;
-    width: 200px;
-    display: inline-block;
+.description {
+  color: rgb(113,111,109);
+  font-size: 14px;
+  width: 200px;
+  display: inline-block;
+  margin-left: 1%;
+  margin-top: 1%;
 
-  }
+} 
+
+.anonymous {
+  color: rgb(113,111,109);
+  margin-left: 1%;
+  font-size: 14px;
+  margin-top: 1%;
+}
 
 .help-block {
     margin-bottom: 10px;
@@ -50,7 +59,13 @@ input[type="text"] {
     margin-right: 60%;
     margin-bottom: 1%;
     border-radius: 3px;
+    font-size: 12px;
+    width: 20%;
+    color: rgb(113,111,109);
+}
 
+#anonymous.initial_input_control {
+  width: 2%;
 }
 
 .required {
@@ -60,22 +75,8 @@ input[type="text"] {
     font-size: 12px;
     color: gray;
 
-  }
+  } 
 
-a {
-    text-decoration: none;
-    color: #5DBFE2;
-    font-size: 16px;
-
-  }
-  a:hover {
-    color:gray;
-
-  }
-  .bar {
-    background-color:rgb(233, 231, 231);
-
-  }
 
 .submit_data {
     background: #5DBFE2 100%;
@@ -87,7 +88,7 @@ a {
     border-radius: 6px;
     width: 175.2px;
     height: 33px;
-    margin-left: 5.4%;
+    margin-left: 0.7%;
     margin-top: 1.8%;
 
 }
@@ -96,10 +97,9 @@ a {
   color: rgb(113,111,109);
   font-size: 14px;
   padding: 5px;
+  margin-left: 0.5%;
 }
-.description {
-  padding-left: 5px;
-}
+
 
 #rating, #description{
   margin-bottom: 5px;
