@@ -76,6 +76,7 @@ def profile(userprofile):
     return render_template('profile.html', title='PROFILE', user=user, reviews=reviews,
     avg_rating=avg_rating)
 
+#page for users to edit their profiles
 @app.route("/editProfile/<userprofile>", methods=['GET', 'POST'])
 @login_required
 def editProfile(userprofile):
@@ -87,8 +88,8 @@ def editProfile(userprofile):
         current_user.email=form.email.data
         current_user.bio=form.bio.data
         db.session.commit()         
-        flash('Your profile has been updated!', 'label')
-        return redirect(url_for('profile', userprofile=userprofile))
+        flash('Your profile has been updated!', 'success')
+        return redirect(url_for('profile', userprofile=current_user.username))
     elif request.method=='GET':
         form.username.data=current_user.username
         form.email.data=current_user.email
@@ -115,26 +116,6 @@ def review(userprofile):
         return redirect(url_for('profile', userprofile=userprofile))
     return render_template('review.html', form=form)
 
-# @app.route("/edit-profile", methods=['GET', 'POST'])
-# @login_required
-# def editAccount():
-#     form = UpdateAccountForm()
-#     if form.validate_on_submit():
-#         if form.picture.data:
-#             picture_file=save_picture(form.picture.data)
-#             current_user.image_file=picture_file
-#         current_user.username=form.username.data
-#         current_user.email=form.email.data
-#         db.session.commit()
-#         flash('Account is updated.', 'label')
-#         return redirect(url_for('account'))
-#     elif request.method=='GET':
-#         form.username.data=current_user.username
-#         form.email.data=current_user.email
-#     #assigns the profile pic to the one uploaded by user
-#     image_file = url_for('static', filename='profile_pic/' + current_user.image_file)
-#     #pass in all the required data for getting the profile
-#     return render_template('profile.html', title='PROFILE', image_file=image_file, form=form)
 
 @app.route("/search", methods=['GET', 'POST'])
 @login_required
