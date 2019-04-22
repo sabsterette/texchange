@@ -100,26 +100,20 @@
                                 {% endif %}
                             </label>
                         </div>
-                        <div class="editProfile">
-                            {{ form.submit(class="editProfile") }}
-                        </div>
+                       
                     </div>
             </form>
         </div>
 
-        <!-- REVIEWS COLUMN -->
+     
 
 
     </div>
 
-
+    <div>
+            {{ form.submit(class="editProfile") }}
     </div>
-    {% if current_user==user %}
-    <button class="editProfile">Edit Profile</button>
-    {% else %}
-    <a class="review" href="{{ url_for('review', userprofile=user.username) }}">Create a review for
-        {{ user.username }} </a>
-    {% endif %}
+    
 </body>
 
 </html>
