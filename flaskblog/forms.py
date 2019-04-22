@@ -60,25 +60,24 @@ class CreateReview (FlaskForm):
     anonymous = BooleanField('Make Anonymous Review')
     submit = SubmitField('Leave Review!')
 
-    # class UpdateAccountForm (FlaskForm):
-    #     # validators are constraints on the username to make sure it's a valid username
-    #     username = StringField('Username',
-    #                            validators=[DataRequired(), Length(min=2, max=20)])
-    #     email = StringField('Email', validators=[DataRequired(), Email()])
-    #     picture = FileField('Update Profile Picture', validators=[FileAllowed(['jpg', 'png'])])
-    #     submit = SubmitField('Update')
+class UpdateAccountForm (FlaskForm):      
+    #validators are constraints on the username to make sure it's a valid username
+    username = StringField('Username', validators=[DataRequired(), Length(min=2, max=20)])
+    email = StringField('Email', validators=[DataRequired(), Email()])
+    bio = TextAreaField('Bio')
+    submit = SubmitField('Update')
 
-    #     def validate_username(self, username):
-    #         if username.data != current_user.username:
-    #             user = User.query.filter_by(username=username.data).first()
-    #             if user:
-    #                 raise ValidationError('Oops! Username already taken!')
+    def validate_username(self, username):
+        if username.data != current_user.username:
+            user = User.query.filter_by(username=username.data).first()
+            if user:
+                raise ValidationError('Oops! Username already taken!')
 
-    #     def validate_email(self, email):
-    #         if email.data != current_user.email:
-    #             user = User.query.filter_by(email=email.data).first()
-    #             if user:
-    #                 raise ValidationError('Oops! That email is already linked to an account!')
+    def validate_email(self, email):
+        if email.data != current_user.email:
+            user = User.query.filter_by(email=email.data).first()
+            if user:
+                raise ValidationError('Oops! That email is already linked to an account!')
 
 class SearchForm(FlaskForm):
     title=StringField('Title')

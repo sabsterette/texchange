@@ -6,7 +6,7 @@ from flask import render_template, url_for, flash, redirect, request
 # render_template allows returning of files,
 # flash allows to send flash messagees
 from flaskblog.forms import RegistrationForm, LoginForm, CreateForm, CreateReview, \
- SearchForm, editItemForm
+ SearchForm, editItemForm, UpdateAccountForm
 from flaskblog import app, db, bcrypt
 from flaskblog.models import User, Post, Reviews 
 from flask_login import login_user, current_user, logout_user, login_required
@@ -54,31 +54,12 @@ def register():
         return redirect(url_for('login'))
     return render_template('register.html', title='Register', form=form)
 
-
-
 @app.route("/logout")
 @login_required
 def logout():
     logout_user()
     flash('You have been logged out')
     return redirect(url_for('login'))
-
-# def save_picture(form_picture):
-#     #saving the name of the picture as a random sequence
-#     random_hex = secrets.token_hex(8)
-#     #this saves the file name as well as the extention
-#     #allows us to remember the extention, we only need to remember the extention
-#     _, f_ext = os.path.splitext(form_picture.filename)
-#     picture_fn = random_hex + f_ext
-#     #gives the full path all the way to the static directory
-#     picture_path = os.path.join(app.root_path, 'static/profile_pic', picture_fn)
-#     #Resizes file to make sure the pictures do not take up too much space
-#     output_size=(125, 125)
-#     i=Image.open(form_picture)
-#     i.thumbnail(output_size)
-
-#     i.save(picture_path)
-#     return picture_fn
 
 @app.route("/profile/<userprofile>", methods=['GET'])
 @login_required
@@ -94,6 +75,26 @@ def profile(userprofile):
         avg_rating=None 
     return render_template('profile.html', title='PROFILE', user=user, reviews=reviews,
     avg_rating=avg_rating)
+
+@app.route("/editProfile/<userprofile>", methods=['GET', 'POST'])
+@login_required
+def editProfile(userprofile):
+    form=UpdateAccountForm()
+    user=User.query.filter_by(username=userprofile).first()
+    reviews=user.reviews
+    if form.validate_on_submit():
+        current_user.username=form.username.data
+        current_user.email=form.email.data
+        current_user.bio=form.bio.data
+        db.session.commit()         
+        flash('Your profile has been updated!', 'label')
+        return redirect(url_for('profile', userprofile=userprofile))
+    elif request.method=='GET':
+        form.username.data=current_user.username
+        form.email.data=current_user.email
+        form.bio.data=current_user.bio
+    return render_template('editProfile.html', title='EDIT PROFILE', user=user, 
+    form=form, reviews=reviews)
 
 
 @app.route("/review/<userprofile>", methods=['GET', 'POST'])
