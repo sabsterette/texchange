@@ -2,6 +2,7 @@
 Texchange User Manual
 
 How to Run the Application
+
 It is suggested to run the application on Firefox Web Browser.
 
 Create an Account
