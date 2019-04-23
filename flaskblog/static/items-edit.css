@@ -1,0 +1,194 @@
+.textbooks {
+    border: 2px solid #5DBFE2;
+    margin-left: 8%;
+    margin-right: 15%;
+    background-color: rgba(93, 191, 226, 0.2);
+}
+h1 {
+    padding-left: 8%;
+    font-size: 40px;
+    color: rgb(113,111,109);
+}
+
+h2 {
+    padding-left: 8%;
+    font-size: 18px;
+    color: rgb(113,111,109);
+}
+
+a {
+    text-decoration: none;
+    color: #5DBFE2;
+}
+a:hover {
+    color:rgb(113,111,109);
+}
+.username {
+    font-size: 12px;
+    color: #5DBFE2;
+}
+
+ .author, .price, .class, .condition, .title, .click-me, .description {
+    height: 20px;
+    float: left;
+    width: 23%;
+    /* padding-bottom: 5px; */
+    
+}
+
+.edition {
+    /* height: 34.4px; */
+    width: 20%;
+    height: 20px;
+    /* margin-right: 80%; */
+    display: inline-block;
+}
+
+
+ .title-name, .author-name, .price-name, .class-name, .condition-name, .description-name {
+    display: inline-block;
+    padding-bottom: 5px;
+    margin-bottom: 6px;
+    padding-left: 2%;
+    width: 100%;
+    font-size: 12px;
+    outline-style: solid;
+    outline-width: 1px;
+    color: rgb(113,111,160);
+    
+}
+
+.edition-name {
+    display: inline-block;
+    padding-bottom: 5px;
+    margin-bottom: 6px;
+    padding-left: 2%;
+    width: 100%;
+    font-size: 12px;
+    outline-style: solid;
+    outline-width: 1px;
+    color: rgb(113,111,160);
+}
+.class-name, .condition-name {
+    height: 26.5px;
+    color: rgb(113,111,160);
+}
+
+.condition-name {
+    padding-left: 1.2%;
+    outline-width: 0px;
+}
+
+
+.textbook-1 {
+    display: inline-block;
+    overflow: auto;
+    width: 90%;
+    margin-left: 3%;
+    padding-top: 1%;
+    padding-bottom: 10px;
+    padding-right: 5px;
+}
+
+.submit-btn {
+    margin-top: 20px;
+    font-size: 15px;
+    padding-left: 2%;
+    padding-right: 2%;
+    border: 2px solid #5DBFE2;
+    width: 200px;
+    background-color: rgba(93, 191, 226, 0.2);
+    color:rgb(113,111,109);   
+}
+.submit-btn:hover {
+    color: white;
+    background-color:#5DBFE2; 
+}
+
+.help-block {
+    margin-bottom: 10px;
+    color:red;
+    font-size: 10px;
+    width: 100px;
+}
+
+.modal-confirm {		
+    color: #636363;
+    width: 400px;
+}
+.modal-confirm .modal-content {
+    padding: 20px;
+    border-radius: 5px;
+    border: none;
+    text-align: center;
+    font-size: 14px;
+}
+.modal-confirm .modal-header {
+    border-bottom: none;   
+    position: relative;
+}
+
+.modal-confirm h4 {
+    text-align: center;
+    font-size: 26px;
+    margin: 30px 0 -10px;
+    color: #5DBFE2;
+}
+.modal-confirm .close {
+    position: absolute;
+    top: -5px;
+    right: -2px;
+}
+.modal-confirm .modal-body {
+    color: #999;
+}
+.modal-confirm .modal-footer {
+    border: none;
+    text-align: center;		
+    border-radius: 5px;
+    font-size: 13px;
+    padding: 10px 15px 25px;
+}
+.modal-confirm .modal-footer a {
+    color: #999;
+}		
+
+.modal-confirm .btn {
+    color: rgb(113,111,109);
+    border-radius: 4px;
+    background: #fff;
+    text-decoration: none;
+    transition: all 0.4s;
+    line-height: normal;
+    min-width: 120px;
+    border: none;
+    min-height: 40px;
+    border-radius: 3px;
+    margin: 0 5px;
+    outline: none !important;
+}
+#bootstrap-overrides .modal-confirm .btn-info {
+    background: #c1c1c1;
+}
+.modal-confirm .btn-info:hover, .modal-confirm .btn-info:focus {
+    background: #a8a8a8;
+}
+.modal-confirm .btn-danger {
+    background: #f15e5e;
+}
+.modal-confirm .btn-danger:hover, .modal-confirm .btn-danger:focus {
+    background: #ee3535;
+    
+}
+.trigger-btn {
+    display: inline-block;
+    margin-left: 8%;
+    margin-bottom: 2%;
+    margin-top: 1%;
+    width: 80px;
+    height: 40px;
+    font-size: 18px;
+    color: #5DBFE2;
+    background: white;
+    outline: 4px #5DBFE2;
+}

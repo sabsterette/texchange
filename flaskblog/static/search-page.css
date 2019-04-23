@@ -9,35 +9,87 @@
     
 }
 
+
+.success {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 20px;
+    margin-top: 2%;
+    margin-left: 7.6%;
+    color: #5DBFE2;
+    background-color: white;
+  
+}
+
 .heading {
     padding-top: 0.5%;
     padding-bottom: 0.2%;
     font-size: 20px;
     color: black;
-     padding-left: 7.6%;
+    padding-left: 7.6%;
     background: #5dbfe2; 
 }
-.authorFilter, .priceFilter, .classFilter {
-    display:inline-block;
-    width: 20%;
-    margin-left: 2%;
+
+.message {
+    font-size: 40%;
 }
-.titleFilter {
-    margin-left: 7.6%;
+
+.btn-search {
     display:inline-block;
-    width: 20%;
+    width: 10%;
+    margin-left:2%
+}
+
+.titleFilter {
+    margin-top: 1%;
+    display:inline-block;
+    width: 6%;
+    font-size: 15px;
 }
 .filters {
     padding-left: 7.6%;
+    padding-bottom: 2%;
     color: black;
     background: #5dbfe2;
     font-size: 15px;
+}
+
+.sortby {
+    display: inline-block;
+    padding-left: 5%;
+}
+
+.searchBar{
+    padding-top: 0.35%;
+    padding-bottom: 0.25%;
+    width: 25%;   
+}
+
+.selectBar {
+    padding-top: 0.35%;
+    padding-bottom: 0.25%;
+    width:15%;
+    text-align:center;
+    margin-left: 1%;
 }
 .filter-names {
     background: #5dbfe2;
     padding-bottom: 1.5%;
     border-bottom: 1px solid rgb(211, 213, 212);
 }
+
+a {
+    text-decoration: none;
+    color: #5DBFE2;
+}
+a:hover {
+    color:rgb(113,111,109);
+}
+
+.click-me {
+    margin-left: 2%;
+    font-size: 12px;
+}
+
 input {
     border-radius: 6px;
     /* border: 1px solid #D9DEE8; */
@@ -63,16 +115,32 @@ input {
     /* box-shadow: 1px 1px 5px rgb(109, 110, 113); */
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
-.author, .price, .class, .condition, .title {
+.author, .price, .class, .condition, .title, .edition {
     float: left;
     margin-left: 2%;
     width: 110px;
 }
 
-.title, .title-name, .author, .author-name, .price, .price-name, .class, .class-name, .condition, .condition-name {
+.title, .title-name, .author, .author-name, .price, .price-name, .class, .class-name, .condition, .condition-name, .edition-name, .edition {
     padding-bottom: 5px;
     font-size: 12px;
 }
-.title-name, .author-name, .price-name, .class-name, .condition-name {
+.title-name, .author-name, .price-name, .class-name, .condition-name, .edition-name {
     color: gray;
+}
+.submit_data {
+    font-size: 15px;
+    width: 30%;
+    margin-left: 30%;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    margin-top: 2%;
+    background-color: white;
+}
+
+.messages {
+    font-size: 20px;
+    padding-top: 1%;
+    color: #5dbfe2;
+    text-align:center;
 }

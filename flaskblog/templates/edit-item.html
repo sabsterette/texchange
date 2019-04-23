@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+<title>EDIT LISTING</title>
+<link rel="icon" type="image/ico" href="{{ url_for('static', filename='assets/images/stack.svg') }}" />
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='items-edit.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='nav.css') }}">
+
+</head>
+
+<div class="nav">
+
+    <ul class="nav-ul">
+        <li><a class="home" href="/home"><img src="{{ url_for('static', filename='assets/images/stack.svg') }}"
+                    alt="Texchange Logo" class="texchangeLogo"></a>
+        </li>
+        <li><a class="home" href="/search"><img src="{{ url_for('static', filename='assets/images/search.svg')}}"
+                    alt="search page" class="searchPage"></a>
+        </li>
+        <div class="dropdown" style="float:right">
+            <img src="{{ url_for('static', filename='assets/images/settings-black.svg')}}" alt="settings"
+                class="dropbtn">
+            <div class="dropdown-content">
+                <a href="{{ url_for('profile', userprofile=current_user.username )}}"><img
+                        src="{{ url_for('static', filename='assets/images/avatar.svg')  }}"
+                        class="profileDrop">Profile</a>
+                <!-- <a *ngIf="auth.isLoggedIn()" (click)="auth.logout()"><img src="assets/images/turn-off.svg" class="signOutDrop">Logout</a> -->
+                <a href="/home"><img src="{{ url_for('static', filename='assets/images/information.svg') }}"
+                        class="supportDrop">Help</a>
+                <a href="/logout"><img src="{{ url_for('static', filename='assets/images/turn-off.svg') }}"
+                        class="signOutDrop">Logout</a>
+
+            </div>
+        </div>
+    </ul>
+</div>
+<h1>EDIT YOUR LISTING</h1>
+<div class="textbooks">
+    <form class="textbook-1" #f="ngForm" action='' method='POST'>
+        {{ form.hidden_tag() }}
+        <div class="title">
+            <label for="title">Title</label>
+        </div>
+        {% if form.title.errors %}
+        {{ form.title(class="title-name") }}
+        {% for error in form.title.errors %}
+        <div class="help-block">{{ error }}</div>
+        {% endfor %}
+        {% else %}
+        {{ form.title(class="title-name") }}
+        {% endif %}
+
+        <div class="edition">
+            <label for="edition">Edition</label>
+        </div>
+        {% if form.edition.errors %}
+        {{ form.edition(class="edition-name") }}
+        {% for error in form.edition.errors %}
+        <div class="help-block">{{ error }}</div>
+        {% endfor %}
+        {% else %}
+        {{ form.edition(class="edition-name") }}
+        {% endif %}
+
+        <div class="author">
+            <label for="author">Author</label>
+        </div>
+        {% if form.authors.errors %}
+        {{ form.authors(class="author-name") }}
+        {% for error in form.authors.errors %}
+        <div class="help-block">{{ error }}</div>
+        {% endfor %}
+        {% else %}
+        {{ form.authors(class="author-name") }}
+        {% endif %}
+
+        <div class="price">
+            <label for="price">Price</label>
+        </div>
+        {% if form.price.errors %}
+        {{ form.price(class="price-name") }}
+        {% for error in form.price.errors %}
+        <div class="help-block">{{ error }}</div>
+        {% endfor %}
+        {% else %}
+        {{ form.price(class="price-name") }}
+        {% endif %}
+
+        <div class="class">
+            <label for="class">Class</label>
+        </div>
+        {% if form.course.errors %}
+        {{ form.course(class="class-name") }}
+        {% for error in form.course.errors %}
+        <div class="help-block">{{ error }}</div>
+        {% endfor %}
+        {% else %}
+        {{ form.course(class="class-name") }}
+        {% endif %}
+
+        <div class="condition">
+            <label for="condition">Condition</label>
+        </div>
+        {% if form.quality.errors %}
+        {{ form.quality(class="condition-name") }}
+        {% for error in form.quality.errors %}
+        <div class="help-block">{{ error }}</div>
+        {% endfor %}
+        {% else %}
+        {{ form.quality(class="condition-name") }}
+        {% endif %}
+
+        <div class="description">
+            <label for="description">Description</label>
+        </div>
+        {% if form.description.errors %}
+        {{ form.description(class="description-name") }}
+        {% for error in form.description.errors %}
+        <div class="help-block">{{ error }}</div>
+        {% endfor %}
+        {% else %}
+        {{ form.description(class="description-name") }}
+        {% endif %}
+
+        <!-- <div class="required">
+          *denotes required fields.
+        </div> -->
+        <div class="submit_data_div">
+            <div type="submit">
+            </div>
+            {{ form.submit(class="submit-btn") }}
+        </div>
+    </form>
+</div>
+
+<!-- Button trigger modal -->
+<button type="button" class="trigger-btn" data-toggle="modal" data-target="#deleteModal">
+    Delete
+</button>
+<!-- Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Are you sure?</h4>
+            </div>
+            <div class="modal-body">
+                <p>Do you really want to delete this listing? This action cannot be undone. </p>
+            </div>
+            <div class="modal-footer">
+                <!-- <button type="button" class="btn btn-info" data-dismiss="modal">Cancel</button> -->
+                <form action="{{url_for('delete_listing', post_id=post.id)}}" method="POST">
+                    <input class="btn btn-danger" type="submit" value="Delete">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+</html>

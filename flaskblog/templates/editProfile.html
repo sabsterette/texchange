@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<title>{{ user.username }}</title>
+<link rel="icon" type="image/ico" href="{{ url_for('static', filename='assets/images/stack.svg') }}" />
+
+<head>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='profile.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='nav.css') }}">
+</head>
+
+<!--NAVBAR START-->
+
+<body>
+    <div class="nav">
+        <ul class="nav-ul">
+            <li><a class="home" href="/home"><img src="{{ url_for('static', filename='assets/images/stack.svg') }}"
+                        alt="Texchange Logo" class="texchangeLogo"></a>
+            </li>
+            <li><a class="home" href="/search"><img src="{{ url_for('static', filename='assets/images/search.svg')}}"
+                        alt="search page" class="searchPage"></a>
+            </li>
+            <div class="dropdown" style="float:right">
+                <img src="{{ url_for('static', filename='assets/images/settings-black.svg')}}" alt="settings"
+                    class="dropbtn">
+                <div class="dropdown-content">
+                    <a href="{{ url_for('profile', userprofile=current_user.username )}}"><img
+                            src="{{ url_for('static', filename='assets/images/avatar.svg')  }}"
+                            class="profileDrop">Profile</a>
+                    <a href="/home"><img src="{{ url_for('static', filename='assets/images/information.svg') }}"
+                            class="supportDrop">Help</a>
+                    <a href="/logout"><img src="{{ url_for('static', filename='assets/images/turn-off.svg') }}"
+                            class="signOutDrop">Logout</a>
+
+                </div>
+            </div>
+        </ul>
+    </div>
+
+    <!--NAVBAR END-->
+    <div class="container">
+        <div class="success">
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+            <ol class="flashes">
+                {% for message in messages %}
+                <li class="flashes">{{ message }}</li>
+                {% endfor %}
+            </ol>
+            {% endif %}
+            {% endwith %}
+        </div>
+        <h1 class="form-signin-heading">Edit Your Profile</h1>
+        <div class="row">
+            <form class="textbook-1" #f="ngForm" action='' method='POST'>
+                {{ form.hidden_tag() }}
+                <div class="column1">
+                    <div class="form-horizontal">
+                        <div class="username-label">
+                            Username
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3-control-label">
+                                {% if form.username.errors %}
+                                {{ form.title(class="title-name") }}
+                                {% for error in form.username.errors %}
+                                <div class="help-block">{{ error }}</div>
+                                {% endfor %}
+                                {% else %}
+                                {{ form.username(class="title-name") }}
+                                {% endif %}
+                            </label>
+                        </div>
+                        <div class="email-label">
+                            Email
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3-control-label">
+                                {% if form.email.errors %}
+                                {{ form.email(class="title-name") }}
+                                {% for error in form.email.errors %}
+                                <div class="help-block">{{ error }}</div>
+                                {% endfor %}
+                                {% else %}
+                                {{ form.email(class="title-name") }}
+                                {% endif %}
+                            </label>
+                        </div>
+                        <div class="bio-label">
+                            Bio
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3-control-label">
+                                {% if form.bio.errors %}
+                                {{ form.bio(class="title-name") }}
+                                {% for error in form.username.errors %}
+                                <div class="help-block">{{ error }}</div>
+                                {% endfor %}
+                                {% else %}
+                                {{ form.bio(class="title-name") }}
+                                {% endif %}
+                            </label>
+                        </div>
+                        <div class="submit-btn">
+                            {{ form.submit(class="submit-btn") }}
+                        </div>
+                    </div>
+            </form>
+        </div>
+
+        <!-- REVIEWS COLUMN -->
+
+
+    </div>
+
+</body>
+
+</html>

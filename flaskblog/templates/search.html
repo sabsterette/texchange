@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+
+<title>Search</title>
+<link rel="icon" type="image/ico" href="{{ url_for('static', filename='assets/images/stack.svg') }}" />
+
+<head>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='search-page.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='nav.css') }}">
+</head>
+<!-- NAV BAR START -->
+
+<body>
+    <div class="nav">
+        <ul class="nav-ul">
+            <li><a class="home" href="/home"><img src="{{ url_for('static', filename='assets/images/stack.svg') }}"
+                        alt="Texchange Logo" class="texchangeLogo"></a>
+            </li>
+            <li><a class="home" href="/search"><img src="{{ url_for('static', filename='assets/images/search.svg')}}"
+                        alt="search page" class="searchPage"></a>
+            </li>
+            <div class="dropdown" style="float:right">
+                <img src="{{ url_for('static', filename='assets/images/settings-black.svg')}}" alt="settings"
+                    class="dropbtn">
+                <div class="dropdown-content">
+                    <a href="{{ url_for('profile', userprofile=current_user.username )}}"><img
+                            src="{{ url_for('static', filename='assets/images/avatar.svg')  }}"
+                            class="profileDrop">Profile</a>
+                    <!-- <a *ngIf="auth.isLoggedIn()" (click)="auth.logout()"><img src="assets/images/turn-off.svg" class="signOutDrop">Logout</a> -->
+                    <a href="/home"><img src="{{ url_for('static', filename='assets/images/information.svg') }}"
+                            class="supportDrop">Help</a>
+                    <a href="/logout"><img src="{{ url_for('static', filename='assets/images/turn-off.svg') }}"
+                            class="signOutDrop">Logout</a>
+
+                </div>
+            </div>
+        </ul>
+    </div>
+    <!-- NAV BAR END-->
+
+    <div class="heading">
+        <h3>Textbook Listings</h3>
+    </div>
+    <div>
+
+        <div class="filters">
+            <img src="{{url_for('static', filename='assets/images/filter-results-button.svg')}}" class="filter-image">
+            Filters
+
+            <form class="form" #f="ngForm" action='' method='POST'>
+                {{ form.hidden_tag() }}
+                <div class="titleFilter">
+                    <label for="title">Title</label>
+                </div>
+                {% if form.title.errors %}
+                {{ form.title(class="searchBar") }}
+                {% for error in form.title.errors %}
+                <div class="help-block">{{ error }}</div>
+                {% endfor %}
+                {% else %}
+                {{ form.title(class="searchBar") }}
+                {% endif %}
+
+                <div class="titleFilter">
+                    <label for="title">Author</label>
+                </div>
+                {% if form.authors.errors %}
+                {{ form.authors(class="searchBar") }}
+                {% for error in form.authors.errors %}
+                <div class="help-block">{{ error }}</div>
+                {% endfor %}
+                {% else %}
+                {{ form.authors(class="searchBar") }}
+                {% endif %}
+
+                <div class="sortby">
+                    <label for="title">Sort By</label>
+                </div>
+                {% if form.sort_by.errors %}
+                {{ form.sort_by(class="selectBar") }}
+                {% for error in form.sort_by.errors %}
+                <div class="help-block">{{ error }}</div>
+                {% endfor %}
+                {% else %}
+                {{ form.sort_by(class="selectBar") }}
+                {% endif %}
+
+                <div type="submit">
+                    {{ form.submit(class="submit_data") }}
+                </div>
+        </div>
+        </form>
+    </div>
+
+    </div>
+    </div>
+    <div class="messages">
+        {{ message }}
+    </div>
+    <div class="messages">
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        {% for message in messages %}
+        {{ message }}
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
+    </div>
+
+    {% for post in posts %}
+    <div class="textbook-1">
+        <div class="title">
+            Title:
+        </div>
+        <div class="title-name">
+            {{ post.title }}
+        </div>
+        <div class="edition">
+            Edition:
+        </div>
+        <div class="edition-name">
+            {% if post.edition %}
+            {{ post.edition }}
+            {% else %}
+            -
+            {% endif %}
+        </div>
+        <div class="author">
+            By:
+        </div>
+        <div class="author-name">
+            {{ post.authors }}
+        </div>
+        <div class="price">
+            Price:
+        </div>
+        <div class="price-name">
+            ${{ post.price }}
+        </div>
+        <div class="class">
+            Class:
+        </div>
+        <div class="class-name">
+            {{ post.class_id }}
+        </div>
+        <div class="condition">
+            Condition:
+        </div>
+        <div class="condition-name">
+            {{ post.quality }}
+        </div>
+        <a href="{{ url_for('items', post_id=post.id) }}" class="click-me" target="_blank">
+            view more info</a>
+    </div>
+    {% endfor %}
+</body>
+
+</html>

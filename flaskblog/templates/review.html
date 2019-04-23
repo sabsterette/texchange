@@ -21,8 +21,8 @@
       <div class="dropdown" style="float:right">
         <img src="{{ url_for('static', filename='assets/images/settings-black.svg')}}" alt="settings" class="dropbtn">
         <div class="dropdown-content">
-          <a href="/profile"><img src="{{ url_for('static', filename='assets/images/avatar.svg')  }}"
-              class="profileDrop">Profile</a>
+          <a href="{{ url_for('profile', userprofile=current_user.username )}}"><img
+              src="{{ url_for('static', filename='assets/images/avatar.svg')  }}" class="profileDrop">Profile</a>
           <!-- <a *ngIf="auth.isLoggedIn()" (click)="auth.logout()"><img src="assets/images/turn-off.svg" class="signOutDrop">Logout</a> -->
           <a href="/home"><img src="{{ url_for('static', filename='assets/images/information.svg') }}"
               class="supportDrop">Help</a>
@@ -53,7 +53,7 @@
       {% endif %}
 
       <div class="description">
-        <label for="description">*Description</label>
+        <label for="description">Description</label>
       </div>
       {% if form.description.errors %}
       {{ form.description(class="initial_input_control") }}
@@ -67,6 +67,17 @@
       <!-- <div class="required">
         *denotes required fields.
       </div> -->
+      <div class="anonymous">
+        <label for="anonymous">Keep post anonymous</label>
+        {% if form.anonymous.errors %}
+        {{ form.anonymous(class="initial_input_control") }}
+        {% for error in form.anonymous.errors %}
+        <div class="help-block">{{ error }}</div>
+        {% endfor %}
+        {% else %}
+        {{ form.anonymous(class="initial_input_control") }}
+        {% endif %}
+      </div>
       <div class="submit_data_div">
         <div type="submit">
           {{ form.submit(class="submit_data") }}
@@ -75,5 +86,4 @@
     </form>
   </div>
 </body>
-
 </html>

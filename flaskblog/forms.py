@@ -11,7 +11,6 @@ from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationE
 from flaskblog.models import User
 from flask_login import current_user
 
-
 class RegistrationForm (FlaskForm):
     # validators are constraints on the username to make sure it's a valid username
     username = StringField('Username',
@@ -22,7 +21,7 @@ class RegistrationForm (FlaskForm):
     confirm_password = PasswordField('Confirm Password',
                                      validators=[EqualTo('password')])
     submit = SubmitField('REGISTER')
-
+    #overwrite the validate method for username and email to make suer it's unique
     def validate_username(self, username):
         user = User.query.filter_by(username=username.data).first()
         if user:
@@ -42,31 +41,59 @@ class LoginForm (FlaskForm):
 
 class CreateForm (FlaskForm):
     title = StringField('Title', validators=[DataRequired()])
+    edition = StringField('Edition')
     authors = StringField('Authors', validators=[DataRequired()])
     price = DecimalField('Price', places=2, validators=[DataRequired()])
     course = StringField('Class Name', validators=[DataRequired()])
-    condition = StringField('Condition',validators=[DataRequired()])
-     #choices=[('Brand New', 'Lightly Used', 'Used', 'Old'
+    quality = SelectField('Quality', choices=[('Brand New', 'Brand New'), ('Lightly Used', 'Lightly Used'), ('Used', 'Used'), ('Old', 'Old')], validators=[DataRequired()])
     description = TextAreaField('Description', validators=[Length(max=140)])
     submit = SubmitField('Create Item!')
 
+    def validate_price(self, price):
+        if isinstance(price.data, str):
+            raise ValidationError('Must be a number')
 
-class UpdateAccountForm (FlaskForm):
-    # validators are constraints on the username to make sure it's a valid username
-    username = StringField('Username',
-                           validators=[DataRequired(), Length(min=2, max=20)])
+
+class CreateReview (FlaskForm):
+    rating = SelectField('Rating',choices=[('1', '1 star'), ('2', '2 star'), ('3', '3 star'), ('4', '4 star'), ('5', '5 star')], validators=[DataRequired()])
+    description = TextAreaField('Description')
+    anonymous = BooleanField('Make Anonymous Review')
+    submit = SubmitField('Leave Review!')
+
+class UpdateAccountForm (FlaskForm):      
+    #validators are constraints on the username to make sure it's a valid username
+    username = StringField('Username', validators=[DataRequired(), Length(min=2, max=20)])
     email = StringField('Email', validators=[DataRequired(), Email()])
-    picture = FileField('Update Profile Picture', validators=[FileAllowed(['jpg', 'png'])])
+    bio = TextAreaField('Bio')
     submit = SubmitField('Update')
 
     def validate_username(self, username):
         if username.data != current_user.username:
             user = User.query.filter_by(username=username.data).first()
             if user:
-                raise ValidationError('Username already taken oops!')
+                raise ValidationError('Oops! Username already taken!')
 
     def validate_email(self, email):
         if email.data != current_user.email:
             user = User.query.filter_by(email=email.data).first()
             if user:
-                raise ValidationError('Email already taken oops!')
+                raise ValidationError('Oops! That email is already linked to an account!')
+
+class SearchForm(FlaskForm):
+    title=StringField('Title')
+    authors=StringField('Author')
+    sort_by=SelectField('Sort By: ', choices=[('select one', '--Select One--'), ('price', 'Price'),
+        ('classid', 'Class'), ('condition', 'Condition'), ('date', 'Date Posted'),
+        ('edition', 'Edition')])
+    submit=SubmitField('Search')
+
+class editItemForm(FlaskForm):
+    title = StringField('Title', validators=[DataRequired()])
+    edition = StringField('Edition')
+    authors = StringField('Authors', validators=[DataRequired()])
+    price = DecimalField('Price', places=3, validators=[DataRequired()])
+    course = StringField('Class Name', validators=[DataRequired()])
+    quality = SelectField('Quality', choices=[('Brand New', 'Brand New'), ('Lightly Used', 'Lightly Used'),
+    ('Used', 'Used'), ('Old', 'Old')], validators=[DataRequired()])
+    description = TextAreaField('Description', validators=[Length(max=140)])
+    submit = SubmitField('Update Item')

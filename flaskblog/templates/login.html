@@ -2,6 +2,7 @@
 <html>
 
 <title>LOG IN</title>
+<link rel="icon" type="image/ico" href="{{ url_for('static', filename='assets/images/stack.svg') }}" />
 
 <head>
   <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='login.css') }}">
@@ -13,16 +14,18 @@
 
     <div class="heading"><img src="{{ url_for('static', filename='assets/images/stack.svg') }}" alt="Texchange Logo"
         class="texchangeLogo">Texchange</div>
-    <div class="login_form">
+    <div class="message">
       {% with messages = get_flashed_messages() %}
       {% if messages %}
-      <ul class="flashes">
+      <ol class="flashes">
         {% for message in messages %}
         <li>{{ message }}</li>
         {% endfor %}
-      </ul>
-      {% endif %}
-      {% endwith %}
+        </ul>
+        {% endif %}
+        {% endwith %}
+    </div>
+    <div class="login_form">
       <form class="form" method="POST" action=''>
         {{ form.hidden_tag() }}
         <div class="form-group">
