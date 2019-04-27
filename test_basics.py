@@ -77,7 +77,7 @@ class FlaskblogTests(unittest.TestCase):
         #create some users to test login
         self.register('testing', 'testing@gmail.com', 'testing', 'testing')
         response=self.login('testing@gmail.com', 'testing')
-        assert b'Welcome Back testing!' in response.data
+        assert b'Welcome testing!' in response.data
         response=self.logout()
         assert b'You have been logged out' in response.data
         #testing using the wrong password
@@ -90,6 +90,38 @@ class FlaskblogTests(unittest.TestCase):
     ##########################################################
     ################ TEST FOR EDITING USERS ##################
     ##########################################################
+
+    def editUser(self, userprofile, username, email, bio):
+        return self.app.post(f'/editProfile/{userprofile}', data=dict(username=username,
+        email=email, bio=bio), follow_redirects=True)
+
+    def test_editUser(self):
+        self.register('testing', 'testing@gmail.com', 'testing', 'testing')
+        self.login('testing@gmail.com', 'testing')
+        response=self.editUser('testing', 'testing', 'testing@gmail.com', 'This is my bio')
+        user=User.query.first()
+        bio='This is my bio'
+        self.assertEqual(bio, user.bio)
+        assert b'Your profile has been updated!' in response.data
+        self.logout()
+        #try with another user to make sure username can't be changed 
+        self.register('tester', 'tester@gmail.com', 'testing', 'testing')
+        self.login('tester@gmail.com', 'testing')
+        response=self.editUser('tester', 'testing', 'tester@gmail.com', '')
+        assert b'Oops! Username already taken!' in response.data
+        #test for email that already exists
+        response=self.editUser('tester', 'tester', 'testing@gmail.com', '')
+        assert b'Oops! That email is already linked to an account!' in response.data
+        # test for correct username change
+        response=self.editUser('tester', 'tested', 'tester@gmail.com', '')
+        assert b'Your profile has been updated!' in response.data
+        user=User.query.filter_by(username='tested').first()
+        self.assertEqual(user.username, 'tested')
+        # test for correct email change
+        response=self.editUser('tested', 'tested', 'tested@gmail.com', '')
+        assert b'Your profile has been updated!' in response.data
+        user=User.query.filter_by(username='tested').first()
+        self.assertEqual(user.email, 'tested@gmail.com')
 
     ##########################################################
     ################ TEST FOR CREATING ITEMS #################
@@ -154,13 +186,73 @@ class FlaskblogTests(unittest.TestCase):
     ##########################################################
     ############## TEST FOR CREATING REVIEWS #################
     ##########################################################
+    def createReview(self, userprofile, rating, description, anonymous):
+        return self.app.post(f'/review/{userprofile}', data=dict(rating=rating, description=description,
+        anonymous=anonymous), follow_redirects=True)
+
+    def test_createReview(self):
+        # user that will be reviewed
+        self.register('reviewee', 'testing@gmail.com', 'testing', 'testing')
+        # user that will be reviewing
+        self.register('reviewing', 'reviewer@gmail.com', 'testing', 'testing')
+        self.login('reviewer@gmail.com', 'testing')
+        response=self.createReview('reviewee', '3', 'responded very quickly', True)
+        user=User.query.filter_by(username='reviewee').first()
+        rev="[Reviews('3', 'responded very quickly')]"
+        #test that the review is in the user reviews 
+        self.assertEqual(rev, f"{user.reviews}")
+        #make sure the post is anonymous
+        assert b'Anonymous' in response.data
+        response=self.createReview('reviewee', '5', '', None)
+        #reassign user to update the number of reviews
+        user=User.query.filter_by(username='reviewee').first()
+        rev1="[Reviews('3', 'responded very quickly'), Reviews('5', '')]"
+        self.assertEqual(rev1, f"{user.reviews}")
+        #make sure the post is not anonymous
+        assert b'reviewing' in response.data
+        # see if the average rating is correct
+        assert b'4.0' in response.data
+
 
     ##########################################################
     ################# TEST FOR SEARCHING #####################
     ##########################################################
-    def search(self, title, authors):
-        return self.app.post('/search', data=dict(title=title, authors=authors), 
+    def search(self, title, authors, sort_by):
+        # the sort_by was tested manually, needed to be included for the tests to work
+        return self.app.post('/search', data=dict(title=title, authors=authors, sort_by=sort_by), 
         follow_redirects=True)
+
+    def test_search(self):
+        self.register('testing', 'testing@gmail.com', 'testing', 'testing')
+        self.login('testing@gmail.com', 'testing')
+        self.create('Math', '2', 'Professor', '9.00', 'Math 201', 'Brand New', 'good textbook')
+        self.create('Movies', '3', 'Melvin', '14.00', 'Film 201', 'Brand New', 'Unhelpful')
+        self.create('Business & Management', '4', 'Melvin', '30.00', 'Bman 201', 'Brand New', 'useful textbook')
+        response=self.search('', '', 'price')
+        #check that all the textbooks appear in the search
+        assert b'Movies' in response.data
+        assert b'Math' in response.data
+        #&amp; needs to be used to check for & in the HTML response
+        assert b'Business &amp; Management' in response.data
+        #search by just using title
+        response=self.search('Math', '', 'price')
+        # make sure that only the textbook with title Math is in the result
+        assert b'Movies' not in response.data
+        assert b'Math' in response.data
+        assert b'Business &amp; Management' not in response.data
+        #search by just using author
+        response=self.search('', 'Melvin', 'price')
+        # only textbooks with Melvin as authors should appear
+        assert b'Movies' in response.data
+        assert b'Math' not in response.data
+        assert b'Business &amp; Management' in response.data
+        # search by both title and author
+        response=self.search('Movies', 'Melvin', 'price')
+        # only textbook with matching title and author 
+        assert b'Movies' in response.data
+        assert b'Math' not in response.data
+        assert b'Business &amp; Management' not in response.data
+
 
 if __name__ == "__main__":
     unittest.main()
